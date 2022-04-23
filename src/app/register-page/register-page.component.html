@@ -1,0 +1,81 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <form #registerForm="ngForm" (ngSubmit)="registerUser()">
+        <h1>Create new Account</h1>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="First Name"
+            [(ngModel)]="user.name"
+            id="firstName"
+            name="firstName"
+            required
+          />
+          <mat-error> Please provide your first name </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Last Name"
+            [(ngModel)]="user.surname"
+            id="lastName"
+            name="lastName"
+            required
+          />
+          <mat-error> Please provide your last name </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="phone"
+            matInput
+            placeholder="Phone"
+            [(ngModel)]="user.phone"
+            id="phone"
+            name="phone"
+            required
+          />
+          <mat-error> Please provide your phone number </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Email"
+            [(ngModel)]="user.email"
+            id="username"
+            name="username"
+            required
+          />
+          <mat-error> Please provide a valid email address </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            [(ngModel)]="user.password"
+            id="password"
+            name="password"
+            required
+          />
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="Confirm Password"
+            [(ngModel)]="user.cpassword"
+            id="cpassword"
+            name="cpassword"
+            required
+          />
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <button class="button" mat-raised-button color="primary">
+          Register
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
