@@ -19,6 +19,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +36,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     RegisterPageComponent,
     ProductCardComponent,
     ProductsViewComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +51,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatInputModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
