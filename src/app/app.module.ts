@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,6 +43,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatInputModule,
     MatGridListModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function tokenGetter() {
+          return localStorage.getItem('access_token');
+        },
+        allowedDomains: ['localhost:4200'],
+        disallowedRoutes: ['http://localhost:4200/login']
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

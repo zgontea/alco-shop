@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RegisterService } from '../services/register.service';
+import { RegisterService } from '../services/register/register.service';
 import { User } from '../wrappers/user';
 
 @Component({
