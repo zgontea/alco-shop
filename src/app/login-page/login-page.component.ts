@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy(): void {}
+  public ngOnDestroy(): void { }
 
   public onSubmit(): void {
     console.log(this.username);

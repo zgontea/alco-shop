@@ -7,7 +7,7 @@ import { User } from '../../wrappers/user';
   providedIn: 'root',
 })
 export class RegisterService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   registerUser(user: User): Observable<Object> {
     console.log(user);
