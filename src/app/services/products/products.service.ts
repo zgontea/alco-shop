@@ -14,8 +14,10 @@ export class ProductsService {
   
   getProducts(): Observable<Product[]> {
     let header = new HttpHeaders().set('Authorization',  `Bearer ${localStorage.getItem('access_token')}`);
+    console.log(`Bearer ${localStorage.getItem('access_token')}`);
+    
     return this.httpClient.get<Product[]>(
-      UrlProviderService.products + '/all', header
+      UrlProviderService.products + '/all'
     );
     // TODO
     // Poprawienie zapytania zeby dawalo header z tokenem
