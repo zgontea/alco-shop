@@ -6,11 +6,11 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { ProductsViewComponent } from './products-view/products-view.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductsViewComponent } from './components/products-view/products-view.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -51,6 +51,11 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatInputModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatRadioModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {
@@ -60,11 +65,6 @@ import { MatRadioModule } from '@angular/material/radio';
         disallowedRoutes: ['http://localhost:4200/login']
       },
     }),
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

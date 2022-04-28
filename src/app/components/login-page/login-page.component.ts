@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtService } from '../services/jwt/jwt.service';
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public username = '';
   public password = '';
 
-  constructor(private jwtService: JwtService, private router: Router) {}
+  constructor(private jwtService: JwtService, private router: Router, private httpClient: HttpClient) {}
 
   public ngOnInit(): void {
     if (this.jwtService.loggedIn) {
@@ -24,9 +25,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void { }
 
   public onSubmit(): void {
-    console.log(this.username);
-
     this.jwtService.login(this.username, this.password);
-    console.log(this.jwtService.loggedIn);
   }
 }

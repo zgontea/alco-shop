@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RegisterService } from '../services/register/register.service';
-import { User } from '../wrappers/user';
+import { RegisterService } from '../../services/register/register.service';
+import { User } from '../../wrappers/user';
 
 @Component({
   selector: 'app-register-page',

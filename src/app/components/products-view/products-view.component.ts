@@ -1,10 +1,9 @@
-import { Component, EventEmitter, HostListener, Input, OnInit } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
-import { CategoryService } from '../services/category.service';
-import { ProductsService } from '../services/products/products.service';
-import { Category } from '../wrappers/category';
-import { Product } from '../wrappers/product';
+import { Component, OnInit } from '@angular/core';
+import { MatRadioChange } from '@angular/material/radio';
+import { CategoryService } from '../../services/category/category.service';
+import { ProductsService } from '../../services/products/products.service';
+import { Category } from '../../wrappers/category';
+import { Product } from '../../wrappers/product';
 
 @Component({
   selector: 'app-products-view',

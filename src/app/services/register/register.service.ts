@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../wrappers/user';
 
+import { UrlProviderService } from '../urlProvider/url-provider.service';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +14,6 @@ export class RegisterService {
 
   registerUser(user: User): Observable<Object> {
     console.log(user);
-    return this.httpClient.post('http://25.50.55.41:8090/api/users/save', user);
+    return this.httpClient.post(UrlProviderService.users + '/save', user);
   }
 }

@@ -1,26 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { UrlProviderService } from '../urlProvider/url-provider.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JwtService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
-    console.log('Siema');
-    
     return this.httpClient
-      .post<{ access_token: string }>('http://25.50.55.41:8090/auth/login', {
-        email,
-        password,
+      .post<{ access_token: string }>(UrlProviderService.login, {
+        login: email,
+        password: password,
       })
-      .pipe(
-        tap((res) => {
-          localStorage.setItem('access_token', res.access_token);
-        })
-      );
+      .subscribe({
+        next: (data) => {
+          localStorage.setItem('access_token', data.access_token);
+        },
+        error: (error) => {
+          console.log('Error');
+        },
+        complete: () => {
+          this.router.navigateByUrl('/products');
+        },
+      });
   }
 
   logout() {
