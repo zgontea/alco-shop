@@ -10,9 +10,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public username = '';
   public password = '';
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void { }
 
-  public ngOnDestroy(): void {}
+  public ngOnDestroy(): void { }
 
-  public onSubmit(): void {}
+  public login(): void {
+
+  }
 }
