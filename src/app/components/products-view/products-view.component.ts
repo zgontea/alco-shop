@@ -13,6 +13,8 @@ import { Product } from '../../wrappers/product';
 export class ProductsViewComponent implements OnInit {
   private _products: Product[] = [];
   public _categories: Category[] = [];
+  value = '';
+  value2 = '';
 
   constructor(private productsService: ProductsService, private categoryService: CategoryService) { }
 
@@ -36,10 +38,16 @@ export class ProductsViewComponent implements OnInit {
       .subscribe((value) => (this._products = value));
   }
 
-  public getProducts(): void {
+  private getProducts(): void {
     this.productsService
       .getProducts()
       .subscribe((value) => (this._products = value));
+    if (this.value) {
+      this._products.filter(product => {
+        product.unitPrice >= Number(this.value)
+          && product.unitPrice <= Number(this.value2)
+      })
+    }
   }
 
   public getCategories(): void {

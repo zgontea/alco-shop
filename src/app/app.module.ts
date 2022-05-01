@@ -26,7 +26,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSidenavModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatExpansionModule,
+    MatMenuModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {

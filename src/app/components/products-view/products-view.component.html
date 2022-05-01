@@ -20,7 +20,26 @@
         </ul>
       </span>
     </section>
+    <form class="example-form">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Cena od</mat-label>
+        <input matInput type="text" [(ngModel)]="value">
+        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Cena do</mat-label>
+        <input matInput type="text" [(ngModel)]="value2">
+        <button *ngIf="value2" matSuffix mat-icon-button aria-label="Clear" (click)="value2=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+
   </mat-drawer>
+
 
   <div *ngIf="products.length > 0" class="products-table">
     <div *ngFor="let product of products">

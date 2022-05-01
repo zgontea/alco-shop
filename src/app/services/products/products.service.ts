@@ -10,14 +10,14 @@ import { UrlProviderService } from '../urlProvider/url-provider.service';
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private httpClient: HttpClient) {}
-  
+  constructor(private httpClient: HttpClient) { }
+
   getProducts(): Observable<Product[]> {
-    let header = new HttpHeaders().set('Authorization',  `Bearer ${localStorage.getItem('access_token')}`);
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
     console.log(`Bearer ${localStorage.getItem('access_token')}`);
-    
+
     return this.httpClient.get<Product[]>(
-      UrlProviderService.products + '/all'
+      UrlProviderService.products + '/all', { headers: header }
     );
     // TODO
     // Poprawienie zapytania zeby dawalo header z tokenem
