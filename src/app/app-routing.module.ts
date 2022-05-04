@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { ProductsViewComponent } from './components/products-view/products-view.component';
+import { ProductsPageComponent } from './components/products-page/products-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: ProductsViewComponent,
+    component: ProductsPageComponent,
   },
   { path: '**', component: ErrorPageComponent },
 ];

@@ -11,6 +11,8 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductsViewComponent } from './components/products-view/products-view.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductsPageComponent } from './components/products-page/products-page.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -28,6 +30,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +42,8 @@ import { MatMenuModule } from '@angular/material/menu';
     ProductCardComponent,
     ProductsViewComponent,
     ToolbarComponent,
+    NavbarComponent,
+    ProductsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +65,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatRadioModule,
     MatExpansionModule,
     MatMenuModule,
+    MatSliderModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {

@@ -1,0 +1,19 @@
+<mat-toolbar>
+    <span>Alco Shop</span>
+
+    <button mat-button>Produkty</button>
+    
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="handleLogin()">
+            <span>{{loginLogoutLabel}}</span>
+        </button>
+        <button mat-menu-item>
+            <span>Moje konto</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>

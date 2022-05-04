@@ -6,3 +6,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
     background-color: rgba(0, 0, 0, 0.795);
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    overflow-y: scroll;
+    background: rgb(65, 65, 65);
+    box-shadow: inset 0 0 4px #4d4d4d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(173, 41, 92);
+    border-radius: 10px;
+}

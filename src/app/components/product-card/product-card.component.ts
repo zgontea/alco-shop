@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProductCardComponent implements OnInit {
   constructor() {}
 
-  private _pathToImages = '../assets/product-images/';
+  private _pathToImages = '../../assets/product-images/';
   
   @Input('name')
   public name = 'Name';
@@ -17,7 +17,7 @@ export class ProductCardComponent implements OnInit {
   public category = 'Category';
 
   @Input('image')
-  public image = '../assets/product-images/absolut-vodka.jpg';
+  public image = '../../assets/product-images/absolut-vodka.jpg';
 
   @Input('des')
   public description = 'Pyszka trzeba pić';

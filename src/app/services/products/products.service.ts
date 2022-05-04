@@ -19,7 +19,5 @@ export class ProductsService {
     return this.httpClient.get<Product[]>(
       UrlProviderService.products + '/all', { headers: header }
     );
-    // TODO
-    // Poprawienie zapytania zeby dawalo header z tokenem
   }
 }
