@@ -1,19 +1,29 @@
 <mat-toolbar>
     <span>Alco Shop</span>
+    
+    <img class="logo" src="../../../assets/logo.png">
 
-    <button mat-button>Produkty</button>
+    <div class="navbar-buttons">
+        <button mat-button routerLink="/products">Produkty</button>
+        <button mat-button>Kontakt</button>
+        <button mat-button>Koszyk</button>
+    </div>
     
     <span class="spacer"></span>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button mat-button [matMenuTriggerFor]="menu">
+        <span class="label">Erian Dorian</span>
         <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="handleLogin()">
-            <span>{{loginLogoutLabel}}</span>
-        </button>
-        <button mat-menu-item>
+        <button *ngIf="isLogged" mat-menu-item>
             <span>Moje konto</span>
+        </button>
+        <button *ngIf="isLogged" mat-menu-item>
+            <span>Moje zamówienia</span>
+        </button>
+        <button color="primary" mat-menu-item (click)="handleLogin()">
+            <span>{{loginLogoutLabel}}</span>
         </button>
     </mat-menu>
 </mat-toolbar>

@@ -5,7 +5,15 @@
     z-index: 2;
 }
 
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
 .container {
+    margin-top: 60px;
     height: 100%;
     z-index: 1;
 }

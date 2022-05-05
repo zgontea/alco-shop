@@ -24,13 +24,15 @@ import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EventSnackBarComponent } from './components/event-snack-bar/event-snack-bar.component';
+
 
 
 @NgModule({
@@ -41,9 +43,9 @@ import { MatSliderModule } from '@angular/material/slider';
     RegisterPageComponent,
     ProductCardComponent,
     ProductsViewComponent,
-    ToolbarComponent,
     NavbarComponent,
     ProductsPageComponent,
+    EventSnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatExpansionModule,
     MatMenuModule,
     MatSliderModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {

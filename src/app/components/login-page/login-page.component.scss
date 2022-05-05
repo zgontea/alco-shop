@@ -5,7 +5,9 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  gap: 30px;
   max-width: none;
+  min-height: fit-content;
 }
 
 mat-card {
@@ -32,4 +34,8 @@ mat-form-field {
 .button {
   margin-top: 5%;
   width: 100%;
+}
+
+.logo {
+  width: 200px;
 }

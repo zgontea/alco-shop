@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtService } from '../../services/jwt/jwt.service';
@@ -13,7 +12,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public username = '';
   public password = '';
 
-  constructor(private jwtService: JwtService, private router: Router, private httpClient: HttpClient) {}
+  constructor(private jwtService: JwtService, private router: Router) {}
 
   public ngOnInit(): void {
     if (this.jwtService.loggedIn) {

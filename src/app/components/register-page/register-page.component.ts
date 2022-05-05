@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RegisterService } from '../../services/register/register.service';
 import { User } from '../../wrappers/user';
 
@@ -10,7 +11,7 @@ import { User } from '../../wrappers/user';
 export class RegisterPageComponent implements OnInit, OnDestroy {
   user: User = new User();
   cpassword ='';
-  constructor(private registerService: RegisterService) {}
+  constructor(private registerService: RegisterService, private router: Router) {}
 
   public ngOnInit(): void {}
 
@@ -28,6 +29,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     this.registerService.registerUser(this.user).subscribe({
       complete: () => {
         alert('User registered successfully!');
+        this.router.navigateByUrl('/products');
       },
       error: () => {
           alert('User could not be registered!');
