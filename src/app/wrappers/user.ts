@@ -4,5 +4,4 @@ export class User {
   phone!: string;
   email!: string;
   password!: string;
-  cpassword!: string;
 }
