@@ -14,6 +14,6 @@ export class RegisterService {
 
   registerUser(user: User): Observable<Object> {
     console.log(user);
-    return this.httpClient.post(UrlProviderService.users + '/save', user);
+    return this.httpClient.post(UrlProviderService.register + '/save', user);
   }
 }

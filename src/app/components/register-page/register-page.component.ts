@@ -19,10 +19,10 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   public registerUser(): void {
     this.registerService.registerUser(this.user).subscribe({
       complete: () => {
-        alert('Successfully User register');
+        alert('User registered successfully!');
       },
       error: () => {
-        alert('Sorry User not register');
+        alert('User could not be registered!');
       },
     });
   }

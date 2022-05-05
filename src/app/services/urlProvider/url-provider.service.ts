@@ -17,6 +17,9 @@ export class UrlProviderService {
   public static get login() {
     return this.serverAddress + '/auth/login';
   }
+  public static get register() {
+    return this.serverAddress + '/auth/register';
+  }
   public static get users() {
     return this.serverAddress + this._api + '/users';
   }
