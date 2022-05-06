@@ -9,7 +9,9 @@ import { JwtService } from 'src/app/services/jwt/jwt.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, private jwtService: JwtService) { }
+  constructor(private router: Router, private jwtService: JwtService) {
+    
+  }
 
   get isLogged(): boolean {
     return this.jwtService.loggedIn;
@@ -17,6 +19,14 @@ export class NavbarComponent implements OnInit {
 
   get loginLogoutLabel(): string {
     return this.isLogged ? 'Wyloguj' : 'Zaloguj';
+  }
+
+  get userName(): string | null {
+    return localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
+  }
+
+  get userSurname(): string | null {
+    return localStorage.getItem('surname') === null ? '' : localStorage.getItem('surname');
   }
 
   ngOnInit(): void {
@@ -32,6 +42,5 @@ export class NavbarComponent implements OnInit {
 
   private logout() {
     this.jwtService.logout();
-    this.router.navigateByUrl('/login');
   }
 }

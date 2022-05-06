@@ -1,4 +1,6 @@
+import { IfStmt } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { JwtService } from '../../services/jwt/jwt.service';
 
@@ -8,11 +10,11 @@ import { JwtService } from '../../services/jwt/jwt.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
-  public loginValid = true;
+  public _loginValid = true;
   public username = '';
   public password = '';
 
-  constructor(private jwtService: JwtService, private router: Router) {}
+  constructor(private jwtService: JwtService, private router: Router, private _snackBar: MatSnackBar) {}
 
   public ngOnInit(): void {
     if (this.jwtService.loggedIn) {
@@ -25,5 +27,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.jwtService.login(this.username, this.password);
+    this.jwtService.loggedIn ? this._loginValid = true : this._loginValid = false;    
+  }
+
+  get loginValid(): boolean {
+    return this._loginValid;
   }
 }

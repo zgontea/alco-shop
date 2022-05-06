@@ -1,26 +1,26 @@
 <div class="container">
   
-  
-  <img class="logo" src="../../../assets/logo.png">
   <mat-card>
     <mat-card-content>
       <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-        <h1>Log In</h1>
-        <mat-error *ngIf="!loginValid">
-          The username and password were not recognized
-        </mat-error>
+        <div class="header">
+          <img class="logo" src="../../../assets/logo.png">
+          <span class="company">Alco Shop</span>
+        </div>
+        <mat-divider inset></mat-divider>
         <mat-form-field>
           <input matInput placeholder="Email" [(ngModel)]="username" name="username" required />
-          <mat-error> Please provide a valid email address </mat-error>
+          <mat-error> Proszę wprowadzić poprawny adres email </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
-          <mat-error> Please provide a valid password </mat-error>
+          <input matInput type="password" placeholder="Hasło" [(ngModel)]="password" name="password" required />
+          <mat-error> Proszę wprowadzić poprawny adres email </mat-error>
+          <mat-error *ngIf="!loginValid"></mat-error>
         </mat-form-field>
-        <button class="button" mat-raised-button color="primary">Login</button>
+        <button class="button" mat-raised-button color="primary">Zaloguj</button>
       </form>
       <button class="button" routerLink="/register" routerLinkActive="active" mat-stroked-button color="primary">
-        Create Account
+        Nie mam konta
       </button>
     </mat-card-content>
   </mat-card>

@@ -20,17 +20,22 @@ export class JwtService {
 
   login(email: string, password: string) {
     return this.httpClient
-      .post<{ access_token: string }>(UrlProviderService.login, {
-        login: email,
-        password: password,
-      })
+      .post<{ access_token: string; name: string; surname: string }>(
+        UrlProviderService.login,
+        {
+          login: email,
+          password: password,
+        }
+      )
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('name', data.name);
+          localStorage.setItem('surname', data.surname);
         },
         error: (error) => {
-          this.showSnackBar('Niepoprawne dane logowania rurku', 'Zamknij');
-          console.log('jebac disa');
+          this.showSnackBar('Niepoprawne dane logowania', 'Zamknij');
+          console.log('error');
         },
         complete: () => {
           this.router.navigateByUrl('/products');
@@ -42,11 +47,14 @@ export class JwtService {
     this._snackBar.open(message, action, {
       duration: 3500,
       panelClass: ['snack-failure'],
+      verticalPosition: 'top',
     });
   }
 
   logout() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('surname');
   }
 
   public get loggedIn(): boolean {

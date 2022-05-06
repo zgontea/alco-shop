@@ -33,3 +33,26 @@ mat-form-field {
   margin-top: 5%;
   width: 100%;
 }
+
+.logo {
+  width: 150px;
+}
+
+.company {
+  text-align: justify;
+  font-size: 60px;
+  color: white;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:left;
+  margin-bottom: 20px;
+  gap: 30px;
+}
+
+.label {
+  margin-top: 20px;
+}

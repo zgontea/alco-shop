@@ -2,40 +2,45 @@
   <mat-card>
     <mat-card-content>
       <form #registerForm="ngForm" (ngSubmit)="registerUser()">
-        <h1>Create new Account</h1>
+        <div class="header">
+          <img class="logo" src="../../../assets/logo.png">
+          <span class="company">Alco Shop</span>
+        </div>
+        <mat-divider inset></mat-divider>
+        <h1 class="label">Utwórz nowe konto</h1>
         <mat-form-field>
           <input
             matInput
-            placeholder="First Name"
+            placeholder="Imię"
             [(ngModel)]="user.name"
             id="firstName"
             name="firstName"
             required
           />
-          <mat-error> Please provide your first name </mat-error>
+          <mat-error> Proszę wprowadzić poprawne imię </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
             matInput
-            placeholder="Last Name"
+            placeholder="Nazwisko"
             [(ngModel)]="user.surname"
             id="lastName"
             name="lastName"
             required
           />
-          <mat-error> Please provide your last name </mat-error>
+          <mat-error> Proszę wprowadzić poprawne nazwisko </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
             type="phone"
             matInput
-            placeholder="Phone"
+            placeholder="Numer Telefonu"
             [(ngModel)]="user.phone"
             id="phone"
             name="phone"
             required
           />
-          <mat-error> Please provide your phone number </mat-error>
+          <mat-error> Proszę wprowadzić poprawny numer telefonu </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -46,34 +51,34 @@
             name="username"
             required
           />
-          <mat-error> Please provide a valid email address </mat-error>
+          <mat-error> Proszę wprowadzić poprawny adres email </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
             matInput
             type="password"
-            placeholder="Password"
+            placeholder="Hasło"
             [(ngModel)]="user.password"
             id="password"
             name="password"
             required
           />
-          <mat-error> Please provide a valid password </mat-error>
+          <mat-error> Hasło musi składać się z conajmniej 8 znaków </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
             matInput
             type="password"
-            placeholder="Confirm Password"
+            placeholder="Potwierdź hasło"
             [(ngModel)]="cpassword"
             id="cpassword"
             name="cpassword"
             required
           />
-          <mat-error> Please provide a valid password </mat-error>
+          <mat-error> Wprowadzone hasła nie są takie same </mat-error>
         </mat-form-field>
         <button class="button" mat-raised-button color="primary">
-          Register
+          Utwórz konto
         </button>
       </form>
     </mat-card-content>
