@@ -32,6 +32,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EventSnackBarComponent } from './components/event-snack-bar/event-snack-bar.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 
 
@@ -46,6 +47,7 @@ import { EventSnackBarComponent } from './components/event-snack-bar/event-snack
     NavbarComponent,
     ProductsPageComponent,
     EventSnackBarComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

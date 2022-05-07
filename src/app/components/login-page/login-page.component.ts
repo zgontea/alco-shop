@@ -18,7 +18,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     if (this.jwtService.loggedIn) {
-      this.router.navigateByUrl('/products');
+      if ( this.jwtService.isAdmin)
+        this.router.navigateByUrl("/admin-panel")
+      else
+        this.router.navigateByUrl('/products');
+
       console.log('Logged in');
     }
   }
@@ -27,7 +31,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.jwtService.login(this.username, this.password);
-    this.jwtService.loggedIn ? this._loginValid = true : this._loginValid = false;    
+    this.jwtService.loggedIn ? this._loginValid = true : this._loginValid = false;
   }
 
   get loginValid(): boolean {

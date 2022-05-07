@@ -23,5 +23,8 @@ export class UrlProviderService {
   public static get users() {
     return this.serverAddress + this._api + '/users';
   }
+  public static get image() {
+    return this.serverAddress + this._api + '/images';
+  }
   constructor() {}
 }

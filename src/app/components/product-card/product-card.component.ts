@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {ImageService} from "../../services/image/image.service";
 
 @Component({
   selector: 'app-product-card',
@@ -6,10 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent implements OnInit {
-  constructor() {}
+  constructor(private imageService: ImageService)
+  {}
 
-  private _pathToImages = '../../assets/product-images/';
-  
   @Input('name')
   public name = 'Name';
 
@@ -28,12 +28,15 @@ export class ProductCardComponent implements OnInit {
   @Input('size')
   public size = 700;
 
+
   @Input('concentration')
   public concentration = 40;
 
   public get pathToImages() {
-    return this._pathToImages;
+    return this.imageService.getImage(this.image)
   }
+
+
 
   ngOnInit(): void {}
 }

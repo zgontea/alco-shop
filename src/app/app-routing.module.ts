@@ -4,6 +4,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ProductsPageComponent } from './components/products-page/products-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsPageComponent,
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
   },
   { path: '**', component: ErrorPageComponent },
 ];

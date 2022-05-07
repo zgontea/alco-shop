@@ -13,14 +13,14 @@ export class JwtService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {
     localStorage.removeItem('access_token');
   }
 
   login(email: string, password: string) {
     return this.httpClient
-      .post<{ access_token: string; name: string; surname: string }>(
+      .post<{ access_token: string; name: string; surname: string; is_admin: string }>(
         UrlProviderService.login,
         {
           login: email,
@@ -32,13 +32,17 @@ export class JwtService {
           localStorage.setItem('access_token', data.access_token);
           localStorage.setItem('name', data.name);
           localStorage.setItem('surname', data.surname);
+          localStorage.setItem('is_admin',data.is_admin);
         },
         error: (error) => {
           this.showSnackBar('Niepoprawne dane logowania', 'Zamknij');
           console.log('error');
         },
         complete: () => {
-          this.router.navigateByUrl('/products');
+          if ( this.isAdmin)
+            this.router.navigateByUrl("/admin-panel")
+          else
+            this.router.navigateByUrl('/products');
         },
       });
   }
@@ -59,5 +63,10 @@ export class JwtService {
 
   public get loggedIn(): boolean {
     return localStorage.getItem('access_token') !== null;
+  }
+
+  public get isAdmin(): boolean
+  {
+    return localStorage.getItem('is_admin') === "true";
   }
 }
