@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ImageService} from "../../services/image/image.service";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-product-card',
@@ -7,7 +8,8 @@ import {ImageService} from "../../services/image/image.service";
   styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent implements OnInit {
-  constructor(private imageService: ImageService)
+  constructor(private imageService: ImageService,
+              private sanitizer: DomSanitizer)
   {}
 
   @Input('name')
@@ -18,7 +20,7 @@ export class ProductCardComponent implements OnInit {
 
   @Input('image')
   public image = '../../assets/product-images/absolut-vodka.jpg';
-
+  imageUrl?: SafeUrl
   @Input('des')
   public description = 'Pyszka trzeba pić';
 
@@ -32,11 +34,13 @@ export class ProductCardComponent implements OnInit {
   @Input('concentration')
   public concentration = 40;
 
-  public get pathToImages() {
-    return this.imageService.getImage(this.image)
+
+  ngOnInit(): void {
+    console.log(this.image);
+    this.imageService.getImage(this.image)
+      .subscribe(data => {
+        this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64' + data.image);
+
+      });
   }
-
-
-
-  ngOnInit(): void {}
 }
