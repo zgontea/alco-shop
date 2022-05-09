@@ -1,3 +1,3 @@
 export class Image {
-  image!: String;
+  image!: string;
 }

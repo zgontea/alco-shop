@@ -19,8 +19,8 @@ export class ProductCardComponent implements OnInit {
   public category = 'Category';
 
   @Input('image')
-  public image = '../../assets/product-images/absolut-vodka.jpg';
-  imageUrl?: SafeUrl
+  public image = 'absolut-lime.jpg';
+  imageFromBase64?: SafeUrl;
   @Input('des')
   public description = 'Pyszka trzeba pić';
 
@@ -39,8 +39,7 @@ export class ProductCardComponent implements OnInit {
     console.log(this.image);
     this.imageService.getImage(this.image)
       .subscribe(data => {
-        this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64' + data.image);
-
+        this.imageFromBase64 = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64' + data.image);
       });
   }
 }
