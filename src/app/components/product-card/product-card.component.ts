@@ -39,7 +39,7 @@ export class ProductCardComponent implements OnInit {
     console.log(this.image);
     this.imageService.getImage(this.image)
       .subscribe(data => {
-        this.imageFromBase64 = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64' + data.image);
+        this.imageFromBase64 = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + data.image);
       });
   }
 }
