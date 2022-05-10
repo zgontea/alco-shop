@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../../wrappers/product';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
+import {ProductAdd} from "../../wrappers/product-add";
 
 
 @Injectable({
@@ -19,5 +20,10 @@ export class ProductsService {
     return this.httpClient.get<Product[]>(
       UrlProviderService.products + '/all', { headers: header }
     );
+  }
+
+  addProducts(productAdd : ProductAdd): Observable<Product> {
+    return this.httpClient.post<Product>(
+      UrlProviderService.products + '/add', productAdd);
   }
 }
