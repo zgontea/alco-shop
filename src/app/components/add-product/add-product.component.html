@@ -1,1 +1,100 @@
-<p>co tu sie kurwa odpierdala xd</p>
+<div>
+  <mat-card>
+    <mat-card-header>
+      <h1>Dodaj nowy produkt</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider inset></mat-divider>
+      <form #registerForm="ngForm" (ngSubmit)="addProduct()">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nazwa"
+            [(ngModel)]="newProduct.name"
+            id="name"
+            name="name"
+            required
+          />
+          <mat-error> Proszę wprowadzić poprawną nazwę produktu </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Cena"
+            [(ngModel)]="newProduct.unitPrice"
+            id="unitPrice"
+            name="unitPrice"
+            required
+          />
+          <mat-error> Proszę wprowadzić poprawną cenę </mat-error>
+        </mat-form-field>
+        <section class="example-section">
+          <span class="example-list-section">
+            <ul>
+              <li *ngFor="let category of categories">
+                <mat-radio-button
+                  (change)="onChange($event)"
+                  value="{{ category.categoryName }}"
+                >
+                  {{ category.categoryName }}
+                </mat-radio-button>
+              </li>
+            </ul>
+          </span>
+        </section>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Opis"
+            [(ngModel)]="newProduct.description"
+            id="description"
+            name="description"
+            required
+          />
+          <mat-error> Proszę wprowadzić poprawny opis </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input
+              matInput
+              placeholder="Pojemność"
+              [(ngModel)]="newProduct.size"
+              id="size"
+              name="size"
+              required
+            />
+            <mat-error> Proszę wprowadzić poprawną pojemność </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Stężenie"
+              [(ngModel)]="newProduct.concentration"
+              id="concentration"
+              name="concentration"
+              required
+            />
+            <mat-error> Proszę wprowadzić poprawne stężenie </mat-error>
+          </mat-form-field>
+        <div class="input">
+          <input class="input"
+            type="file"
+            placeholder="Zdjęcie"
+            class="form-input"
+            (change)="fileChanged($event)"
+            accept="image/*"
+            #imageInput
+          />
+        </div>
+
+        <button
+        mat-raised-button color="primary"
+          class="form-submit"
+          status="primary"
+          type="submit"
+        >
+          Dodaj produkt
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

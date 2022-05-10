@@ -22,6 +22,9 @@
         <button *ngIf="isLogged" mat-menu-item>
             <span>Moje zamówienia</span>
         </button>
+        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin-panel">
+            <span>Panel Administratora</span>
+        </button>
         <button color="primary" mat-menu-item (click)="handleLogin()">
             <span>{{loginLogoutLabel}}</span>
         </button>

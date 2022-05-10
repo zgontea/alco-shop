@@ -17,6 +17,10 @@ export class NavbarComponent implements OnInit {
     return this.jwtService.loggedIn;
   }
 
+  get isAdmin(): boolean {
+    return this.jwtService.isAdmin;
+  }
+
   get loginLogoutLabel(): string {
     return this.isLogged ? 'Wyloguj' : 'Zaloguj';
   }

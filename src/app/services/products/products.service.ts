@@ -23,7 +23,8 @@ export class ProductsService {
   }
 
   addProducts(productAdd : ProductAdd): Observable<Product> {
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
     return this.httpClient.post<Product>(
-      UrlProviderService.products + '/add', productAdd);
+      UrlProviderService.products + '/add', productAdd, { headers: header });
   }
 }

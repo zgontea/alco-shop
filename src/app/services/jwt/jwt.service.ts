@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
-import { EventSnackBarComponent } from 'src/app/components/event-snack-bar/event-snack-bar.component';
 
 @Injectable({
   providedIn: 'root',
@@ -13,36 +12,35 @@ export class JwtService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private _snackBar: MatSnackBar,
-  ) {
-    localStorage.removeItem('access_token');
-  }
+    private _snackBar: MatSnackBar
+  ) {}
 
   login(email: string, password: string) {
     return this.httpClient
-      .post<{ access_token: string; name: string; surname: string; is_admin: string }>(
-        UrlProviderService.login,
-        {
-          login: email,
-          password: password,
-        }
-      )
+      .post<{
+        access_token: string;
+        name: string;
+        surname: string;
+        is_admin: string;
+      }>(UrlProviderService.login, {
+        login: email,
+        password: password,
+      })
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);
           localStorage.setItem('name', data.name);
           localStorage.setItem('surname', data.surname);
-          localStorage.setItem('is_admin',data.is_admin);
+          localStorage.setItem('is_admin', data.is_admin);
+          console.log("isAdmin" + data.is_admin);
         },
         error: (error) => {
           this.showSnackBar('Niepoprawne dane logowania', 'Zamknij');
           console.log('error');
         },
         complete: () => {
-          if ( this.isAdmin)
-            this.router.navigateByUrl("/admin-panel")
-          else
-            this.router.navigateByUrl('/products');
+          if (this.isAdmin) this.router.navigateByUrl('/admin-panel');
+          else this.router.navigateByUrl('/products');
         },
       });
   }
@@ -65,8 +63,7 @@ export class JwtService {
     return localStorage.getItem('access_token') !== null;
   }
 
-  public get isAdmin(): boolean
-  {
-    return localStorage.getItem('is_admin') === "true";
+  public get isAdmin(): boolean {
+    return localStorage.getItem('is_admin') === 'true';
   }
 }

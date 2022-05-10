@@ -5,5 +5,5 @@ export class ProductAdd {
   description!: string;
   size!: number;
   concentration!: number;
-  categoryId!: number;
+  categoryName!: string;
 }

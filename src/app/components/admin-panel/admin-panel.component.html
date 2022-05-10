@@ -1,11 +1,14 @@
-<div>
-  <mat-card class="main-card">
-      <h1>Witaj w panelu admina</h1>
-      <h5>Co chcesz zrobić?</h5>
-      <button class="button" routerLink='/addProduct' routerLinkActive="active" mat-stroked-button color="primary">
-        Dodaj produkt
-      </button>
-  </mat-card>
+<div class="page">
+  <div class="navbar">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="container">
+    <h1 class="header">Panel Administratora</h1>
+    <mat-tab-group mat-align-tabs="start" (selectedTabChange)="changeTab($event)">
+      <mat-tab label="Użytkownicy"></mat-tab>
+      <mat-tab label="Produkty"></mat-tab>
+      <mat-tab label="Statystyki sprzedażowe"></mat-tab>
+    </mat-tab-group>
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-

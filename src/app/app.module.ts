@@ -13,6 +13,8 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductsViewComponent } from './components/products-view/products-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductsPageComponent } from './components/products-page/products-page.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,7 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,11 +33,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { EventSnackBarComponent } from './components/event-snack-bar/event-snack-bar.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
-
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +48,10 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     ProductsViewComponent,
     NavbarComponent,
     ProductsPageComponent,
-    EventSnackBarComponent,
     AdminPanelComponent,
     AddProductComponent,
+    UserListComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatDividerModule,
     MatProgressBarModule,
@@ -73,6 +76,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     MatMenuModule,
     MatSliderModule,
     MatSnackBarModule,
+    MatTabsModule,
+    MatTableModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {
