@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Category } from '../../wrappers/category';
-import { ProductAdd } from '../../wrappers/product-add';
-import { ProductsService } from '../../services/products/products.service';
-import { CategoryService } from '../../services/category/category.service';
+import { Category } from '../../../wrappers/category';
+import { ProductAdd } from '../../../wrappers/product-add';
+import { ProductsService } from '../../../services/products/products.service';
+import { CategoryService } from '../../../services/category/category.service';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-product',
@@ -25,19 +26,13 @@ export class AddProductComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private categoryService: CategoryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {
     this.getCategories();
-     this.form = fb.group({
-    //   'name': ['', Validators.required],
-    //   'unitPrice': ['', [Validators.required, Validators.min(0)]],
-    //   //'categoryName': ['', Validators.required],
-       'image': ['', Validators.required],
-    //   'description':['', Validators.required],
-    //   'size':['', Validators.required, Validators.min(0)],
-    //   'concentration':['', Validators.required, Validators.min(0)],
-
-     });
+    this.form = fb.group({
+      image: ['', Validators.required],
+    });
   }
   ngOnInit(): void {
     this.getCategories();
@@ -59,32 +54,47 @@ export class AddProductComponent implements OnInit {
     //this.newProduct = this.form.value as ProductAdd;
     // this.newProduct.categoryName = this.catName
     this.productsService.addProducts(this.newProduct).subscribe({
-      next: _ => {
+      next: (_) => {
         this.form.reset();
         if (this.imageInput) {
           this.imageInput.nativeElement.value = '';
         }
-      }
-    })
+      },
+    });
   }
 
   fileChanged(event: Event) {
-      const input = event.target as HTMLInputElement;
-      if (!input.files?.length) {
-        return;
-      }
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const image = new Image();
-        image.src = e.target.result;
-        image.onload = rs => {
-          this.form.patchValue({
-            image: e.target.result
-          });
-        }
-      }
-      reader.readAsDataURL(file)
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) {
+      return;
     }
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const image = new Image();
+      image.src = e.target.result;
+      image.onload = (rs) => {
+        this.form.patchValue({
+          image: e.target.result,
+        });
+      };
+    };
+    reader.readAsDataURL(file);
+  }
 
+  showSnackBarError(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3500,
+      panelClass: ['snack-failure'],
+      verticalPosition: 'top',
+    });
+  }
+
+  showSnackBarSuccess(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3500,
+      panelClass: ['snack-success'],
+      verticalPosition: 'top',
+    });
+  }
 }

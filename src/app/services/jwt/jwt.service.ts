@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,6 +14,10 @@ export class JwtService {
     private router: Router,
     private _snackBar: MatSnackBar
   ) {}
+
+  ngOnInit() {
+    
+  }
 
   login(email: string, password: string) {
     return this.httpClient
@@ -32,7 +36,6 @@ export class JwtService {
           localStorage.setItem('name', data.name);
           localStorage.setItem('surname', data.surname);
           localStorage.setItem('is_admin', data.is_admin);
-          console.log("isAdmin" + data.is_admin);
         },
         error: (error) => {
           this.showSnackBar('Niepoprawne dane logowania', 'Zamknij');
@@ -57,6 +60,7 @@ export class JwtService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('name');
     localStorage.removeItem('surname');
+    localStorage.removeItem('is_admin');
   }
 
   public get loggedIn(): boolean {

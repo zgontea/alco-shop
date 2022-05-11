@@ -5,7 +5,9 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { ProductsPageComponent } from './components/products-page/products-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddProductComponent } from './components/admin-panel/add-product/add-product.component';
+import { ProductListComponent } from './components/admin-panel/product-list/product-list.component';
+import { UserListComponent } from './components/admin-panel/user-list/user-list.component';
 
 const routes: Routes = [
   {
@@ -27,11 +29,11 @@ const routes: Routes = [
     children: [
       {
         path: 'user-list',
-        component: ErrorPageComponent,
+        component: UserListComponent,
       },
       {
         path: 'product-list',
-        component: AddProductComponent,
+        component: ProductListComponent,
       },
       {
         path: 'statistics',

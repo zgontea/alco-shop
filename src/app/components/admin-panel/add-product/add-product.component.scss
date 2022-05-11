@@ -1,0 +1,17 @@
+.input {
+    width: 500px;
+}
+
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.dialog {
+    height: 700px;
+}
+
+.form {
+    height: fit-content;
+}

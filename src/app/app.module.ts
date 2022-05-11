@@ -14,7 +14,7 @@ import { ProductsViewComponent } from './components/products-view/products-view.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductsPageComponent } from './components/products-page/products-page.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddProductComponent } from './components/admin-panel/add-product/add-product.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -35,8 +35,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { UserListComponent } from './components/admin-panel/user-list/user-list.component';
+import { ProductListComponent } from './components/admin-panel/product-list/product-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     MatSnackBarModule,
     MatTabsModule,
     MatTableModule,
+    MatDialogModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {
