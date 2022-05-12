@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
 import { AddProductComponent } from '../add-product/add-product.component';
 
@@ -56,8 +58,12 @@ export class ProductListComponent implements OnInit {
 
   dataSource: ProductWrapper[] = [];
   displayedColumns = this.columns.map((c) => c.columnDef);
-  
-  constructor(private productsService: ProductsService, public dialog: MatDialog) {}
+
+  constructor(
+    private productsService: ProductsService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -68,14 +74,14 @@ export class ProductListComponent implements OnInit {
       next: (data) => {
         this.products = data;
         console.log(data.length);
-        
+
         for (let index = 0; index < data.length; index++) {
           const wrapper: ProductWrapper = {
             position: index + 1,
             data: data[index],
           };
           console.log(wrapper);
-          
+
           this.dataSource.push(wrapper);
         }
       },
@@ -88,5 +94,30 @@ export class ProductListComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(AddProductComponent);
+  }
+
+  onDelete(product: ProductWrapper) {
+    this.productsService.delProducts(product.data).subscribe({
+      next: (data) => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Produkt został usunięty pomyślnie',
+          'Zamknij'
+        )
+          .afterDismissed()
+          .subscribe(() => {
+            window.location.reload();
+          });
+      },
+      error: (error) => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Podczas usuwania wystapił problem',
+          'Zamknij'
+        );
+      },
+      complete: () => {},
+    });
+    console.log('Deleted product of id:', product.data.id);
   }
 }

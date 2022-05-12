@@ -41,6 +41,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'error', component: ErrorPageComponent},
   { path: '**', component: ErrorPageComponent },
 ];
 

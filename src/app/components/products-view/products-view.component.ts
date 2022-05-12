@@ -4,19 +4,23 @@ import { CategoryService } from '../../services/category/category.service';
 import { ProductsService } from '../../services/products/products.service';
 import { Category } from '../../wrappers/category';
 import { Product } from '../../wrappers/product';
-
 @Component({
   selector: 'app-products-view',
   templateUrl: './products-view.component.html',
   styleUrls: ['./products-view.component.scss'],
 })
-export class ProductsViewComponent implements OnInit {
-  private _products: Product[] = [];
+
+export class ProductsViewComponent implements OnInit{
+  public _products: Product[] = [];
   public _categories: Category[] = [];
+  public test ='';
   value = '';
   value2 = '';
+  query = '';
 
-  constructor(private productsService: ProductsService, private categoryService: CategoryService) { }
+  constructor(private productsService: ProductsService, private categoryService: CategoryService) {
+
+   }
 
   ngOnInit(): void {
     this.getProducts();
@@ -38,7 +42,7 @@ export class ProductsViewComponent implements OnInit {
       .subscribe((value) => (this._products = value));
   }
 
-  private getProducts(): void {
+  public getProducts(): void {
     this.productsService
       .getProducts()
       .subscribe((value) => (this._products = value));
@@ -56,6 +60,21 @@ export class ProductsViewComponent implements OnInit {
       .subscribe((value) => (this._categories = value));
   }
 
+  public searchFunction(): void {
+    this.getProducts();
+    console.log(this.query);
+    let len = this._products.length;
+    for(let i = 0; i<len; i++)
+    {
+      if( !this._products[i].name.includes(this.query) && this.query!="" )
+      {
+          delete this._products[i];
+      }
+    }
+
+  }
+
+
   public get category(): Category[] {
     return this._categories;
   }
@@ -71,5 +90,6 @@ export class ProductsViewComponent implements OnInit {
   public set products(v: Product[]) {
     this._products = v;
   }
+
 }
 

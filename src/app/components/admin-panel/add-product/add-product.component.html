@@ -1,8 +1,8 @@
 <div class="dialog">
   <h1 mat-dialog-title>Dodaj nowy produkt</h1>
-  <div mat-dialog-content>
+  <mat-dialog-content>
     <mat-divider inset></mat-divider>
-    <form class="form" #registerForm="ngForm" (ngSubmit)="addProduct()">
+    <form #registerForm="ngForm" (ngSubmit)="addProduct()">
       <mat-form-field>
         <input
           matInput
@@ -25,20 +25,18 @@
         />
         <mat-error> Proszę wprowadzić poprawną cenę </mat-error>
       </mat-form-field>
-      <section class="example-section">
-        <span class="example-list-section">
-          <ul>
-            <li *ngFor="let category of categories">
-              <mat-radio-button
-                (change)="onChange($event)"
-                value="{{ category.categoryName }}"
-              >
-                {{ category.categoryName }}
-              </mat-radio-button>
-            </li>
-          </ul>
-        </span>
-      </section>
+      <label>Kategoria</label>
+      <mat-radio-group
+        class="category-radio-group"
+      >
+        <mat-radio-button
+          class="category-radio-button"
+          *ngFor="let category of categories"
+          [value]="category.categoryName"
+        >
+          {{ category.categoryName }}
+        </mat-radio-button>
+      </mat-radio-group>
       <mat-form-field>
         <input
           matInput
@@ -72,12 +70,11 @@
         />
         <mat-error> Proszę wprowadzić poprawne stężenie </mat-error>
       </mat-form-field>
-      <div class="input">
+      <div>
         <input
-          class="input"
+          id="file-upload"
           type="file"
           placeholder="Zdjęcie"
-          class="form-input"
           (change)="fileChanged($event)"
           accept="image/*"
           #imageInput
@@ -91,5 +88,5 @@
         <button mat-button mat-dialog-close>Anuluj</button>
       </div>
     </form>
-  </div>
+  </mat-dialog-content>
 </div>

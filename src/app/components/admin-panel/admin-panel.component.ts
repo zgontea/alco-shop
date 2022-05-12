@@ -39,7 +39,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //this.router.navigateByUrl('/admin-panel/product/add');
+    if (localStorage.getItem('is_admin') === 'false') {
+      this.router.navigate(['/error']);
+    }
+    this.router.navigate(['admin-panel/user-list']);
   }
 
   public ngOnDestroy(): void {}

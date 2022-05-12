@@ -9,6 +9,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
     overflow-y: scroll;
     background: rgb(65, 65, 65);
     box-shadow: inset 0 0 4px #4d4d4d;
@@ -16,5 +17,4 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: rgb(173, 41, 92);
-    border-radius: 10px;
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
+import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class JwtService {
           localStorage.setItem('is_admin', data.is_admin);
         },
         error: (error) => {
-          this.showSnackBar('Niepoprawne dane logowania', 'Zamknij');
+          SnackBarNotificationUtil.showSnackBarFailure(this._snackBar, 'Niepoprawne dane logowania', 'Zamknij');
           console.log('error');
         },
         complete: () => {
@@ -46,14 +47,6 @@ export class JwtService {
           else this.router.navigateByUrl('/products');
         },
       });
-  }
-
-  showSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3500,
-      panelClass: ['snack-failure'],
-      verticalPosition: 'top',
-    });
   }
 
   logout() {

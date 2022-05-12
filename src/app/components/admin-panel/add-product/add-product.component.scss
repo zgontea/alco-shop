@@ -1,17 +1,27 @@
-.input {
-    width: 500px;
-}
-
 mat-dialog-content {
-    display: flex;
-    flex-direction: column;
-    height: 500px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .dialog {
-    height: 700px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: max-content;
 }
 
-.form {
-    height: fit-content;
+mat-form-field {
+  width: 100%;
+}
+
+.category-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.category-radio-button {
+  margin: 5px;
 }

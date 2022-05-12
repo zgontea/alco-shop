@@ -1,4 +1,15 @@
-.demo-table {
-    width: 100%;
+.table {
+  width: 100%;
 }
-  
+
+.empty {
+  text-align: center;
+  justify-content: center;
+  font-size: larger;
+  color: white;
+  margin-top: 50px;
+}
+
+.container {
+  height: auto;
+}

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { RegisterService } from '../../services/register/register.service';
 import { User } from '../../wrappers/user';
 
@@ -28,15 +29,13 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
   public registerUser(): void {
     if (!this.comparePasswords()) {
-
-    } 
-    else {
+    } else {
       this.registerService.registerUser(this.user).subscribe({
         complete: () => {
-          this.showSnackBar(
+          SnackBarNotificationUtil.showSnackBarSuccess(
+            this._snackBar,
             'Konto zostało utworzone pomyslnie',
-            'Zaloguj',
-            'snack-success'
+            'Zaloguj'
           )
             .afterDismissed()
             .subscribe({
@@ -46,20 +45,13 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
             });
         },
         error: () => {
-          this.showSnackBar(
+          SnackBarNotificationUtil.showSnackBarSuccess(
+            this._snackBar,
             'Wystąpił problem podczas próby utworzenia konta',
-            'Zamknij',
-            'snack-failure'
+            'Zamknij'
           );
         },
       });
     }
-  }
-
-  showSnackBar(message: string, action: string, style: string) {
-    return this._snackBar.open(message, action, {
-      panelClass: [style],
-      verticalPosition: 'top',
-    });
   }
 }

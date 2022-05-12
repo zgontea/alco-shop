@@ -27,4 +27,14 @@ export class ProductsService {
     return this.httpClient.post<Product>(
       UrlProviderService.products + '/add', productAdd, { headers: header });
   }
+
+  delProducts(product: Product){
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+    return this.httpClient.delete(
+      UrlProviderService.products + '/del/' + product.id, { headers: header });
+  }
+
+  getAuthorizationHeader(): any {
+    
+  }
 }

@@ -1,15 +1,27 @@
-.demo-table {
+.table {
   width: 100%;
 }
 
 .floating-button {
-    position: absolute;
-    top: 80px;
-    right: 35px;
+  position: absolute;
+  top: 80px;
+  right: 35px;
 }
 
 .action-button {
-    display: flex;
-    width: 100%;
-    align-items: flex-end;
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.empty {
+  text-align: center;
+  justify-content: center;
+  font-size: larger;
+  color: white;
+  margin-top: 50px;
+}
+
+.container {
+  height: auto;
 }

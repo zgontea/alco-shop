@@ -20,4 +20,10 @@ export class UsersService {
       UrlProviderService.users + '/all', { headers: header }
     )
   }
+
+  delUsers(user: User){
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+    return this.httpClient.delete(
+      UrlProviderService.users + '/del/' + user.id, { headers: header });
+  }
 }
