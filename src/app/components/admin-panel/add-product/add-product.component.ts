@@ -6,6 +6,7 @@ import { ProductsService } from '../../../services/products/products.service';
 import { CategoryService } from '../../../services/category/category.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 
 @Component({
   selector: 'app-add-product',
@@ -55,11 +56,24 @@ export class AddProductComponent implements OnInit {
     // this.newProduct.categoryName = this.catName
     this.productsService.addProducts(this.newProduct).subscribe({
       next: (_) => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this._snackBar,
+          'Produkt został dodany pomyślnie',
+          'Zamknij'
+        );
         this.form.reset();
         if (this.imageInput) {
           this.imageInput.nativeElement.value = '';
         }
       },
+      error: (error) => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this._snackBar,
+          'Podczas usuwania wystapił problem',
+          'Zamknij'
+        );
+      },
+      complete: () => {},
     });
   }
 

@@ -69,7 +69,7 @@
     </mat-drawer>
 
     <div id="productDiv" *ngIf="products.length > 0"  class="products-table">
-      <div *ngFor="let product of products" class="card">
+      <div *ngFor="let product of products">
         <div *ngIf="product">
         <app-product-card
           [hidden] = "false"
@@ -85,7 +85,7 @@
       </div>
       </div>
     </div>
-    <div *ngIf="products.length == 0" class="products-table">
+    <div *ngIf="products.length == 0" class="empty">
       <p>Brak produktów</p>
     </div>
   </mat-drawer-container>
