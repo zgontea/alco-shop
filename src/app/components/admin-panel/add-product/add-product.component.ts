@@ -18,7 +18,6 @@ export class AddProductComponent implements OnInit {
 
   public form: FormGroup;
   public categories: Category[] = [];
-  public catName = 'Wódki';
   public value = '';
 
   newProduct: ProductAdd = new ProductAdd();
@@ -45,12 +44,13 @@ export class AddProductComponent implements OnInit {
   }
 
   onChange(event: MatRadioChange) {
-    this.catName = event.source.value;
+    this.value = event.source.value;
+    console.log(event.source.value);
   }
 
   addProduct() {
     this.newProduct.image = this.form.value.image;
-    this.newProduct.categoryName = this.catName;
+    this.newProduct.categoryName = this.value;
     //this.newProduct = this.form.value as ProductAdd;
     // this.newProduct.categoryName = this.catName
     this.productsService.addProducts(this.newProduct).subscribe({

@@ -32,6 +32,7 @@
         <mat-radio-button
           class="category-radio-button"
           *ngFor="let category of categories"
+          (change)="onChange($event)"
           [value]="category.categoryName"
         >
           {{ category.categoryName }}

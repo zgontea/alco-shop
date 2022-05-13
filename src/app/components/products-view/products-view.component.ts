@@ -11,6 +11,7 @@ import { Product } from '../../wrappers/product';
 })
 
 export class ProductsViewComponent implements OnInit{
+  isShown: boolean = false ;
   public _products: Product[] = [];
   public _categories: Category[] = [];
   public test ='';
@@ -24,6 +25,7 @@ export class ProductsViewComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProducts();
+    console.log(this._products.length);
     this.getCategories();
   }
 
@@ -61,19 +63,26 @@ export class ProductsViewComponent implements OnInit{
   }
 
   public searchFunction(): void {
-    this.getProducts();
-    console.log(this.query);
+    this.toggleShow()
     let len = this._products.length;
     for(let i = 0; i<len; i++)
     {
       if( !this._products[i].name.includes(this.query) && this.query!="" )
       {
-          delete this._products[i];
+          let productCard = document.getElementById(this._products[i].name)!;
+          productCard.hidden = true;
       }
+    }
+  }
+  toggleShow() {
+    let len = this._products.length;
+    for(let i = 0; i<len; i++)
+    {
+      let productCard = document.getElementById(this._products[i].name)!;
+      productCard.hidden = false;
     }
 
   }
-
 
   public get category(): Category[] {
     return this._categories;

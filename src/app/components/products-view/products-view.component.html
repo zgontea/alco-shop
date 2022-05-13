@@ -56,22 +56,24 @@
             name = "queryInput"
           />
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="searchFunction()">
+        <button class="search-bar-button" mat-flat-button color="primary" (click)="searchFunction()">
           Wyszukaj
         </button>
-        <button mat-flat-button color="primary" (click)="getProducts()">
+        <button class="search-bar-button" mat-flat-button color="primary" (click)="getProducts()">
           Wyczyść
         </button>
       </form>
 
-      <!-- 
+      <!--
       <div *ngFor="let item of items | search:'id,text':query">{{item.text}}</div> -->
     </mat-drawer>
 
-    <div id="productDiv" *ngIf="products.length > 0" class="products-table">
+    <div id="productDiv" *ngIf="products.length > 0"  class="products-table">
       <div *ngFor="let product of products" class="card">
         <div *ngIf="product">
         <app-product-card
+          [hidden] = "false"
+          [id] = 'product.name'
           [name]="product.name"
           [price]="product.unitPrice"
           [image]="product.image"
