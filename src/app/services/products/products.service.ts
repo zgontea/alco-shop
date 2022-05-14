@@ -5,6 +5,7 @@ import { Product } from '../../wrappers/product';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 import {ProductAdd} from "../../wrappers/product-add";
+import {ProductPage} from "../../wrappers/product-page";
 
 
 @Injectable({
@@ -12,6 +13,16 @@ import {ProductAdd} from "../../wrappers/product-add";
 })
 export class ProductsService {
   constructor(private httpClient: HttpClient) { }
+
+  public getProductPage(pageNumber: number): Observable<ProductPage> {
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+    console.log(`Bearer ${localStorage.getItem('access_token')}`);
+
+    return this.httpClient.get<ProductPage>(
+      UrlProviderService.products + "/pages/"+pageNumber,{ headers: header }
+    );
+
+  }
 
   getProducts(): Observable<Product[]> {
     let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
@@ -35,6 +46,6 @@ export class ProductsService {
   }
 
   getAuthorizationHeader(): any {
-    
+
   }
 }

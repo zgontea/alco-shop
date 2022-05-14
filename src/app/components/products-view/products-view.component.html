@@ -59,9 +59,17 @@
         <button class="search-bar-button" mat-flat-button color="primary" (click)="searchFunction()">
           Wyszukaj
         </button>
-        <button class="search-bar-button" mat-flat-button color="primary" (click)="getProducts()">
+        <button class="search-bar-button" mat-flat-button color="primary" (click)="clearFunction()">
           Wyczyść
         </button>
+        <div *ngIf="currentCategory === 'Wszystko' && query===''">
+          <app-pager
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            (pageChanged)="onPageChanged($event)">
+
+          </app-pager>
+        </div>
       </form>
 
       <!--
@@ -70,7 +78,7 @@
 
     <div id="productDiv" *ngIf="products.length > 0"  class="products-table">
       <div *ngFor="let product of products">
-        <div *ngIf="product">
+        <div *ngIf="product.name.includes(query)">
         <app-product-card
           [hidden] = "false"
           [id] = 'product.name'

@@ -4,6 +4,7 @@ import { CategoryService } from '../../services/category/category.service';
 import { ProductsService } from '../../services/products/products.service';
 import { Category } from '../../wrappers/category';
 import { Product } from '../../wrappers/product';
+import {query} from "@angular/animations";
 @Component({
   selector: 'app-products-view',
   templateUrl: './products-view.component.html',
@@ -11,13 +12,16 @@ import { Product } from '../../wrappers/product';
 })
 
 export class ProductsViewComponent implements OnInit{
-  isShown: boolean = false ;
+
   public _products: Product[] = [];
   public _categories: Category[] = [];
   public test ='';
   value = '';
   value2 = '';
   query = '';
+  currentPage = 0;
+  totalPages = 0;
+  currentCategory = 'Wszystko';
 
   constructor(private productsService: ProductsService, private categoryService: CategoryService) {
 
@@ -25,17 +29,31 @@ export class ProductsViewComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProducts();
-    console.log(this._products.length);
     this.getCategories();
+    this.fetchPage(this.currentPage);
+  }
+
+  fetchPage(pageNumber: number): void {
+    this.productsService.getProductPage(pageNumber).subscribe(
+      response => {
+        this.products = response.items;
+        this.totalPages = response.totalPages;
+      });
+  }
+
+  onPageChanged(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.fetchPage(this.currentPage);
   }
 
   onChange(event: MatRadioChange) {
     if (event.source.value == "Wszystko") {
-      this.getProducts();
+      this.fetchPage(this.currentPage);
     }
     else {
       this.getProductsByCatName(event.source.value)
     }
+    this.currentCategory = event.source.value;
   }
 
   public getProductsByCatName(catName: string): void {
@@ -63,24 +81,27 @@ export class ProductsViewComponent implements OnInit{
   }
 
   public searchFunction(): void {
-    this.toggleShow()
-    let len = this._products.length;
-    for(let i = 0; i<len; i++)
+    if( this.query === '')
     {
-      if( !this._products[i].name.includes(this.query) && this.query!="" )
-      {
-          let productCard = document.getElementById(this._products[i].name)!;
-          productCard.hidden = true;
-      }
+      this.fetchPage(this.currentPage);
+      return;
     }
+    this.getProducts();
+
   }
+
+  public clearFunction(): void {
+    this.fetchPage(this.currentPage);
+    this.query = '';
+  }
+
   toggleShow() {
-    let len = this._products.length;
-    for(let i = 0; i<len; i++)
-    {
-      let productCard = document.getElementById(this._products[i].name)!;
-      productCard.hidden = false;
-    }
+    // let len = this._products.length;
+    // for(let i = 0; i<len; i++)
+    // {
+    //   let productCard = document.getElementById(this._products[i].name)!;
+    //   productCard.hidden = false;
+    // }
 
   }
 

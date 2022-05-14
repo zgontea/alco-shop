@@ -38,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PagerComponent } from './components/pager/pager.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddProductComponent,
     UserListComponent,
     ProductListComponent,
+    PagerComponent,
   ],
   imports: [
     BrowserModule,
