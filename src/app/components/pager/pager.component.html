@@ -1,0 +1,8 @@
+<div class="pager">
+  <button mat-flat-button color="primary" [disabled]="currentPage === 0" (click)="pageChanged.emit(currentPage - 1)">
+    <<
+  </button>
+  <button mat-flat-button color="primary" [disabled]="currentPage === totalPages - 1" (click)="pageChanged.emit(currentPage + 1)">
+    >>
+  </button>
+</div>
