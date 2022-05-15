@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ImageService} from "../../services/image/image.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-product-card',
@@ -9,7 +10,8 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 })
 export class ProductCardComponent implements OnInit {
   constructor(private imageService: ImageService,
-              private sanitizer: DomSanitizer)
+              private sanitizer: DomSanitizer,
+              private _snackBar: MatSnackBar)
   {}
 
   @Input('name')
@@ -41,5 +43,10 @@ export class ProductCardComponent implements OnInit {
       .subscribe(data => {
         this.imageFromBase64 = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + data.image);
       });
+  }
+
+  addToShoppingCart()
+  {
+
   }
 }
