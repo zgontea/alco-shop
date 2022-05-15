@@ -4,18 +4,16 @@ import { CategoryService } from '../../services/category/category.service';
 import { ProductsService } from '../../services/products/products.service';
 import { Category } from '../../wrappers/category';
 import { Product } from '../../wrappers/product';
-import {query} from "@angular/animations";
+import { query } from '@angular/animations';
 @Component({
   selector: 'app-products-view',
   templateUrl: './products-view.component.html',
   styleUrls: ['./products-view.component.scss'],
 })
-
-export class ProductsViewComponent implements OnInit{
-
+export class ProductsViewComponent implements OnInit {
   public _products: Product[] = [];
   public _categories: Category[] = [];
-  public test ='';
+  public test = '';
   value = '';
   value2 = '';
   query = '';
@@ -23,9 +21,10 @@ export class ProductsViewComponent implements OnInit{
   totalPages = 0;
   currentCategory = 'Wszystko';
 
-  constructor(private productsService: ProductsService, private categoryService: CategoryService) {
-
-   }
+  constructor(
+    private productsService: ProductsService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -34,11 +33,10 @@ export class ProductsViewComponent implements OnInit{
   }
 
   fetchPage(pageNumber: number): void {
-    this.productsService.getProductPage(pageNumber).subscribe(
-      response => {
-        this.products = response.items;
-        this.totalPages = response.totalPages;
-      });
+    this.productsService.getProductPage(pageNumber).subscribe((response) => {
+      this.products = response.items;
+      this.totalPages = response.totalPages;
+    });
   }
 
   onPageChanged(pageNumber: number): void {
@@ -47,11 +45,10 @@ export class ProductsViewComponent implements OnInit{
   }
 
   onChange(event: MatRadioChange) {
-    if (event.source.value == "Wszystko") {
+    if (event.source.value == 'Wszystko') {
       this.fetchPage(this.currentPage);
-    }
-    else {
-      this.getProductsByCatName(event.source.value)
+    } else {
+      this.getProductsByCatName(event.source.value);
     }
     this.currentCategory = event.source.value;
   }
@@ -67,10 +64,10 @@ export class ProductsViewComponent implements OnInit{
       .getProducts()
       .subscribe((value) => (this._products = value));
     if (this.value) {
-      this._products.filter(product => {
-        product.unitPrice >= Number(this.value)
-          && product.unitPrice <= Number(this.value2)
-      })
+      this._products.filter((product) => {
+        product.unitPrice >= Number(this.value) &&
+          product.unitPrice <= Number(this.value2);
+      });
     }
   }
 
@@ -81,13 +78,11 @@ export class ProductsViewComponent implements OnInit{
   }
 
   public searchFunction(): void {
-    if( this.query === '')
-    {
+    if (this.query === '') {
       this.fetchPage(this.currentPage);
       return;
     }
     this.getProducts();
-
   }
 
   public clearFunction(): void {
@@ -95,15 +90,6 @@ export class ProductsViewComponent implements OnInit{
     this.query = '';
   }
 
-  toggleShow() {
-    // let len = this._products.length;
-    // for(let i = 0; i<len; i++)
-    // {
-    //   let productCard = document.getElementById(this._products[i].name)!;
-    //   productCard.hidden = false;
-    // }
-
-  }
 
   public get category(): Category[] {
     return this._categories;
@@ -120,6 +106,4 @@ export class ProductsViewComponent implements OnInit{
   public set products(v: Product[]) {
     this._products = v;
   }
-
 }
-

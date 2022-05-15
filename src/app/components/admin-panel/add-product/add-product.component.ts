@@ -65,6 +65,7 @@ export class AddProductComponent implements OnInit {
         if (this.imageInput) {
           this.imageInput.nativeElement.value = '';
         }
+        window.location.reload();
       },
       error: (error) => {
         SnackBarNotificationUtil.showSnackBarSuccess(

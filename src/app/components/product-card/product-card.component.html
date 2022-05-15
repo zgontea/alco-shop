@@ -1,19 +1,19 @@
 <mat-card class="card">
   <mat-card-header>
-    <mat-card-title>{{ name }}</mat-card-title>
+    <mat-card-title>{{ product.name }}</mat-card-title>
     <mat-card-subtitle>
-        {{ size }}ML |
-        {{ concentration }}%
+        {{ product.size }}ML |
+        {{ product.concentration }}%
     </mat-card-subtitle>
   </mat-card-header>
     <img mat-card-image *ngIf="imageFromBase64" [src]="imageFromBase64" alt="Vodka Photo"/>
   <mat-card-content>
     <p>
-      {{ description }}
+      {{ product.description }}
     </p>
-    <p class="price">{{ unitPrice }} PLN</p>
+    <p class="price">{{ product.unitPrice }} PLN</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary" (click)="addToShoppingCart()">DODAJ DO KOSZYKA"</button>
+    <button mat-button color="primary" (click)="addToShoppingCart()">DODAJ DO KOSZYKA</button>
   </mat-card-actions>
 </mat-card>

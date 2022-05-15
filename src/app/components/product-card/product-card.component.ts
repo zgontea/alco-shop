@@ -2,44 +2,28 @@ import { Component, Input, OnInit } from '@angular/core';
 import {ImageService} from "../../services/image/image.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
+import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
+import { Product } from 'src/app/wrappers/product';
+import { ShoppingCart } from 'src/app/utils/shopping-cart';
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent implements OnInit {
-  constructor(private imageService: ImageService,
-              private sanitizer: DomSanitizer,
-              private _snackBar: MatSnackBar)
-  {}
 
-  @Input('name')
-  public name = 'Name';
-
-  @Input('category')
-  public category = 'Category';
-
-  @Input('image')
-  public image = 'absolut-lime.jpg';
+  @Input('product')
+  product!: Product;
   imageFromBase64?: SafeUrl;
-  @Input('des')
-  public description = 'Pyszka trzeba pić';
 
-  @Input('price')
-  public unitPrice = 45.99;
-
-  @Input('size')
-  public size = 700;
-
-
-  @Input('concentration')
-  public concentration = 40;
-
+  constructor(private imageService: ImageService,
+    private sanitizer: DomSanitizer,
+    private _snackBar: MatSnackBar)
+{}
 
   ngOnInit(): void {
-    console.log(this.image);
-    this.imageService.getImage(this.image)
+    console.log(this.product.image);
+    this.imageService.getImage(this.product.image)
       .subscribe(data => {
         this.imageFromBase64 = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + data.image);
       });
@@ -47,6 +31,14 @@ export class ProductCardComponent implements OnInit {
 
   addToShoppingCart()
   {
-
+    SnackBarNotificationUtil.showSnackBarSuccess(
+      this._snackBar,
+      'Produkt został dodany pomyślnie',
+      'Zamknij'
+    );
+    ShoppingCart.products.push(this.product);
+    console.log(ShoppingCart.products);
+    
   }
+
 }
