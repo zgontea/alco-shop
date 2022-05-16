@@ -8,6 +8,7 @@ import { ShoppingCartService } from '../../services/shopping-cart/shopping-cart.
 import { ShoppingCart } from 'src/app/wrappers/shopping-cart';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/wrappers/user';
+import {JwtService} from "../../services/jwt/jwt.service";
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -42,19 +43,9 @@ export class ProductCardComponent implements OnInit {
       'Produkt został dodany pomyślnie',
       'Zamknij'
     );
-    // ShoppingCart.products.push(this.product);
-    // console.log(ShoppingCart.products);
-    let email = localStorage.getItem('email')!;
-    console.log(email);
-    this.userService.getUserByEmail(email).subscribe(
-      data => {
-        (this.cart = data.cart)
-        console.log('OK');
-      }
-    );
-    //this.cart.push(this.product);
-    console.log(this.cart);
-    
+
+    JwtService.shoppingCart.push(this.product);
+    console.log(JwtService.shoppingCart);
   }
 
 }

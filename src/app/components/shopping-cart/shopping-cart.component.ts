@@ -6,6 +6,7 @@ import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-u
 import { Product } from 'src/app/wrappers/product';
 import { ShoppingCart } from 'src/app/wrappers/shopping-cart';
 import { ProductWrapper } from '../admin-panel/product-list/product-list.component';
+import {JwtService} from "../../services/jwt/jwt.service";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -27,9 +28,16 @@ export class ShoppingCartComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) {}
 
-  ngOnInit(): void {   
-    // this.products = ShoppingCart.products;
-    
+  ngOnInit(): void {
+    console.log(JwtService.shoppingCart);
+    if( JwtService.shoppingCart.length === 0)
+    {
+      JwtService.shoppingCart = JSON.parse(localStorage.getItem("shoppingCart")!);
+    }
+
+
+     this.products = JwtService.shoppingCart;
+
     for (let index = 0; index < this.products.length; index++) {
       const wrapper: ProductWrapper = {
         position: index + 1,
@@ -39,13 +47,11 @@ export class ShoppingCartComponent implements OnInit {
       this.dataSource.push(wrapper);
     }
 
-    console.log(this.products.length);
-    
 
     if(this.products.length > 0) {
       this.totalCost = this.getTotalCost();
     }
-    
+
     this.columns = [
       {
         columnDef: 'position',
@@ -90,17 +96,22 @@ export class ShoppingCartComponent implements OnInit {
         cell: () => {},
       },
     ];
-    
+
     this.displayedColumns = this.columns.map((c: { columnDef: any; }) => c.columnDef);
 
   }
 
-  onDelete(id: ProductWrapper) {    
+  onDelete(id: ProductWrapper) {
     SnackBarNotificationUtil.showSnackBarSuccess(
       this.snackBar,
       'Produkt usunięto pomyślnie',
       'Zamknij'
     );
+    delete JwtService.shoppingCart[id.position - 1];
+    JwtService.shoppingCart.length = JwtService.shoppingCart.length - 1;
+    localStorage.setItem('shoppingCart',JSON.stringify(JwtService.shoppingCart));
+    console.log(JwtService.shoppingCart);
+    window.location.reload();
   }
 
   getTotalCost(): number {

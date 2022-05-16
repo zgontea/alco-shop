@@ -11,6 +11,7 @@ import { Product } from 'src/app/wrappers/product';
   providedIn: 'root',
 })
 export class JwtService {
+  public static shoppingCart: Product[] = [];
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -18,7 +19,7 @@ export class JwtService {
   ) {}
 
   ngOnInit() {
-    
+
   }
 
   login(email: string, password: string) {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Image } from '../../wrappers/image';
 import { Observable } from 'rxjs';
-import { Product } from '../../wrappers/product';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 

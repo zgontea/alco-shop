@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../wrappers/product';
+import {JwtService} from "../../services/jwt/jwt.service";
 
 @Component({
   selector: 'app-products-page',
@@ -10,7 +11,7 @@ export class ProductsPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
 }
