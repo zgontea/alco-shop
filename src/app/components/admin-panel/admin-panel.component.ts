@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AdminAction } from '../../wrappers/admin-action';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { Observable, Observer } from 'rxjs';

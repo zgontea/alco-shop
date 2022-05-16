@@ -1,3 +1,4 @@
+import {Product} from "./product";
 export class User {
   name!: string;
   surname!: string;
@@ -5,4 +6,5 @@ export class User {
   email!: string;
   password!: string;
   id!: number;
+  cart!:Array<Product>;
 }

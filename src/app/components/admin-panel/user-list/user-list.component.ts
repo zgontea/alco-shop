@@ -59,6 +59,7 @@ export class UserListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe({
       next: (data) => {
+        
         this.users = data;
 
         for (let index = 0; index < data.length; index++) {
@@ -73,6 +74,7 @@ export class UserListComponent implements OnInit {
       },
       error: (error) => {
         console.log('Error loading users');
+        console.log(error);
       },
       complete: () => {},
     });

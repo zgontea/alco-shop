@@ -26,5 +26,8 @@ export class UrlProviderService {
   public static get image() {
     return this.serverAddress + this._api + '/images';
   }
+  public static get shoppingCart() {
+    return this.serverAddress + this._api + '/shopping-cart';
+  }
   constructor() {}
 }

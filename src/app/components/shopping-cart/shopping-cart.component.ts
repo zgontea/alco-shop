@@ -2,9 +2,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductsService } from 'src/app/services/products/products.service';
-import { ShoppingCart } from 'src/app/utils/shopping-cart';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
+import { ShoppingCart } from 'src/app/wrappers/shopping-cart';
 import { ProductWrapper } from '../admin-panel/product-list/product-list.component';
 
 @Component({
@@ -28,7 +28,7 @@ export class ShoppingCartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {   
-    this.products = ShoppingCart.products;
+    // this.products = ShoppingCart.products;
     
     for (let index = 0; index < this.products.length; index++) {
       const wrapper: ProductWrapper = {
@@ -96,7 +96,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   onDelete(id: ProductWrapper) {    
-    ShoppingCart.removeItem(id.position - 1);
     SnackBarNotificationUtil.showSnackBarSuccess(
       this.snackBar,
       'Produkt usunięto pomyślnie',

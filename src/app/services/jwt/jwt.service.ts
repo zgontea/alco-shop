@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
+import { Product } from 'src/app/wrappers/product';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,7 @@ export class JwtService {
         name: string;
         surname: string;
         is_admin: string;
+        email: string;
       }>(UrlProviderService.login, {
         login: email,
         password: password,
@@ -37,6 +39,7 @@ export class JwtService {
           localStorage.setItem('name', data.name);
           localStorage.setItem('surname', data.surname);
           localStorage.setItem('is_admin', data.is_admin);
+          localStorage.setItem('email', data.email);
         },
         error: (error) => {
           SnackBarNotificationUtil.showSnackBarFailure(this._snackBar, 'Niepoprawne dane logowania', 'Zamknij');

@@ -26,4 +26,11 @@ export class UsersService {
     return this.httpClient.delete(
       UrlProviderService.users + '/del/' + user.id, { headers: header });
   }
+
+  getUserByEmail(email: string): Observable<User> {
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+
+    return this.httpClient.get<User>(
+      UrlProviderService.users + '/email/' + email, { headers: header });
+  }
 }
