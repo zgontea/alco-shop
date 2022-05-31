@@ -4,7 +4,6 @@ import { CategoryService } from '../../services/category/category.service';
 import { ProductsService } from '../../services/products/products.service';
 import { Category } from '../../wrappers/category';
 import { Product } from '../../wrappers/product';
-import { query } from '@angular/animations';
 @Component({
   selector: 'app-products-view',
   templateUrl: './products-view.component.html',
@@ -14,8 +13,8 @@ export class ProductsViewComponent implements OnInit {
   public _products: Product[] = [];
   public _categories: Category[] = [];
   public test = '';
-  value = '';
-  value2 = '';
+  minPrice = '';
+  maxPrice = '';
   query = '';
   currentPage = 0;
   totalPages = 0;
@@ -24,7 +23,7 @@ export class ProductsViewComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private categoryService: CategoryService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -63,12 +62,6 @@ export class ProductsViewComponent implements OnInit {
     this.productsService
       .getProducts()
       .subscribe((value) => (this._products = value));
-    if (this.value) {
-      this._products.filter((product) => {
-        product.unitPrice >= Number(this.value) &&
-          product.unitPrice <= Number(this.value2);
-      });
-    }
   }
 
   public getCategories(): void {
@@ -85,9 +78,15 @@ export class ProductsViewComponent implements OnInit {
     this.getProducts();
   }
 
+  public convertStrToNumber(num: string): Number {
+    return Number(num)
+  }
+
   public clearFunction(): void {
     this.fetchPage(this.currentPage);
     this.query = '';
+    this.minPrice = '';
+    this.maxPrice = '';
   }
 
 

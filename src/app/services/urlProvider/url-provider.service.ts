@@ -29,5 +29,11 @@ export class UrlProviderService {
   public static get shoppingCart() {
     return this.serverAddress + this._api + '/shopping-cart';
   }
-  constructor() {}
+  public static get order() {
+    return this.serverAddress + this._api + '/orders';
+  }
+  public static get orderDetails() {
+    return this.serverAddress + this._api + '/orderDetails';
+  }
+  constructor() { }
 }

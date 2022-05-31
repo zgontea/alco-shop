@@ -3,58 +3,32 @@
     <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
       <label>Kategoria</label>
       <mat-radio-group class="category-radio-group">
-        <mat-radio-button
-          class="category-radio-button"
-          (change)="onChange($event)"
-          value="Wszystko"
-          checked="true"
-        >
+        <mat-radio-button class="category-radio-button" (change)="onChange($event)" value="Wszystko" checked="true">
           Wszystko
         </mat-radio-button>
-        <mat-radio-button
-          class="category-radio-button"
-          *ngFor="let category of _categories"
-          (change)="onChange($event)"
-          [value]="category.categoryName"
-        >
+        <mat-radio-button class="category-radio-button" *ngFor="let category of _categories" (change)="onChange($event)"
+          [value]="category.categoryName">
           {{ category.categoryName }}
         </mat-radio-button>
       </mat-radio-group>
       <form class="example-form">
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Cena od</mat-label>
-          <input matInput type="text" [(ngModel)]="value" name="valueInput"/>
-          <button
-            *ngIf="value"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="value = ''"
-          >
+          <input matInput type="number" [(ngModel)]="minPrice" name="valueInput" />
+          <button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice = ''">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Cena do</mat-label>
-          <input matInput type="text" [(ngModel)]="value2" name="value2Input"/>
-          <button
-            *ngIf="value2"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="value2 = ''"
-          >
+          <input matInput type="number" [(ngModel)]="maxPrice" name="value2Input" />
+          <button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice = ''">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Wyszukaj</mat-label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="query"
-            name = "queryInput"
-          />
+          <input matInput type="text" [(ngModel)]="query" name="queryInput" />
         </mat-form-field>
         <button class="search-bar-button" mat-flat-button color="primary" (click)="searchFunction()">
           Wyszukaj
@@ -63,10 +37,7 @@
           Wyczyść
         </button>
         <div *ngIf="currentCategory === 'Wszystko' && query===''">
-          <app-pager
-            [currentPage]="currentPage"
-            [totalPages]="totalPages"
-            (pageChanged)="onPageChanged($event)">
+          <app-pager [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
 
           </app-pager>
         </div>
@@ -76,18 +47,40 @@
       <div *ngFor="let item of items | search:'id,text':query">{{item.text}}</div> -->
     </mat-drawer>
 
-    <div id="productDiv" *ngIf="products.length > 0"  class="products-table">
+    <div id="productDiv" *ngIf="products.length > 0" class="products-table">
       <div *ngFor="let product of products">
         <div *ngIf="product.name.includes(query)">
-        <app-product-card
-          [hidden] = "false"
-          [id] = 'product.name'
-          [product] = 'product'
-        >
-        </app-product-card>
-      </div>
+          <div *ngIf="minPrice && maxPrice; else elseif1">
+            <div
+              *ngIf="product.unitPrice >= convertStrToNumber(minPrice) && product.unitPrice <= convertStrToNumber(maxPrice)">
+              <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
+              </app-product-card>
+            </div>
+          </div>
+          <ng-template #elseif1>
+            <div *ngIf="minPrice; else elseif2">
+              <div *ngIf="product.unitPrice >= convertStrToNumber(minPrice)">
+                <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
+                </app-product-card>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #elseif2>
+            <div *ngIf="maxPrice; else elseif3">
+              <div *ngIf="product.unitPrice <= convertStrToNumber(maxPrice)">
+                <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
+                </app-product-card>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #elseif3>
+            <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
+            </app-product-card>
+          </ng-template>
+        </div>
       </div>
     </div>
+
     <div *ngIf="products.length == 0" class="empty">
       <p>Brak produktów</p>
     </div>

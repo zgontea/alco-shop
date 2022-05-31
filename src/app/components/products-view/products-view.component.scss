@@ -22,11 +22,11 @@
 }
 
 .example-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 300px;
-    height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 300px;
+  height: fit-content;
 }
 
 .example-container {
@@ -55,6 +55,7 @@
 .category-radio-button {
   margin: 5px;
 }
+
 .container {
   position: absolute;
   top: 65px;
@@ -63,6 +64,12 @@
   width: 100%;
   height: calc(100% - 65px);
 }
+
 .search-bar-button {
   margin-bottom: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }

@@ -1,14 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {ImageService} from "../../services/image/image.service";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { ImageService } from "../../services/image/image.service";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
 import { ShoppingCartService } from '../../services/shopping-cart/shopping-cart.service';
 import { ShoppingCart } from 'src/app/wrappers/shopping-cart';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/wrappers/user';
-import {JwtService} from "../../services/jwt/jwt.service";
+import { JwtService } from "../../services/jwt/jwt.service";
+import { MatDialog } from '@angular/material/dialog';
+import { AddToCartComponent } from '../add-to-cart/add-to-cart/add-to-cart.component';
+
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -24,9 +27,9 @@ export class ProductCardComponent implements OnInit {
   constructor(private imageService: ImageService,
     private sanitizer: DomSanitizer,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private shoppingCartService: ShoppingCartService,
-    private userService: UsersService)
-{}
+    private userService: UsersService) { }
 
   ngOnInit(): void {
     console.log(this.product.image);
@@ -36,8 +39,7 @@ export class ProductCardComponent implements OnInit {
       });
   }
 
-  addToShoppingCart()
-  {
+  addToShoppingCart() {
     SnackBarNotificationUtil.showSnackBarSuccess(
       this._snackBar,
       'Produkt został dodany pomyślnie',
@@ -46,6 +48,10 @@ export class ProductCardComponent implements OnInit {
 
     JwtService.shoppingCart.push(this.product);
     console.log(JwtService.shoppingCart);
+  }
+
+  openDialog(product: Product) {
+    this.dialog.open(AddToCartComponent, { data: product });
   }
 
 }

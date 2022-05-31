@@ -1,0 +1,30 @@
+<div class="dialog">
+    <h1 mat-dialog-title>Dodaj produkt</h1>
+    <h2 mat-dialog-subtitle>{{ product.name }}</h2>
+    <mat-label>Stężenie: {{product.concentration}}%</mat-label>
+    <mat-label>Objętość: {{product.size}}ML</mat-label>
+
+    <mat-dialog-content>
+        <mat-divider inset></mat-divider>
+        <form #registerForm="ngForm" (ngSubmit)="addProduct()">
+            <mat-form-field>
+                <input type="number" min="1" matInput placeholder="Ilość" [(ngModel)]="quantity" id="quantity"
+                    name="quantity" required />
+                <mat-error> Proszę wprowadzić poprawną ilość produktów </mat-error>
+            </mat-form-field>
+
+            <div>
+                <mat-label>
+                    Cena: {{multiply()}}
+                </mat-label>
+            </div>
+
+            <div mat-dialog-actions>
+                <button mat-raised-button color="primary" type="submit">
+                    Dodaj produkt
+                </button>
+                <button mat-button mat-dialog-close>Anuluj</button>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
