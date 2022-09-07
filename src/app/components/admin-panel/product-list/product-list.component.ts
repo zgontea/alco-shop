@@ -50,7 +50,12 @@ export class ProductListComponent implements OnInit {
       cell: (element: ProductWrapper) => `${element.data.concentration}`,
     },
     {
-      columnDef: 'actions',
+      columnDef: 'actionDelete',
+      header: '',
+      cell: () => {},
+    },
+    {
+      columnDef: 'actionEdit',
       header: '',
       cell: () => {},
     },
@@ -71,7 +76,7 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     this.productsService.getProducts().subscribe({
-      next: (data) => {
+      next: (data : any) => {
         this.products = data;
         console.log(data.length);
 
@@ -85,7 +90,7 @@ export class ProductListComponent implements OnInit {
           this.dataSource.push(wrapper);
         }
       },
-      error: (error) => {
+      error: () => {
         console.log('Error loading products');
       },
       complete: () => {},
@@ -98,7 +103,7 @@ export class ProductListComponent implements OnInit {
 
   onDelete(product: ProductWrapper) {
     this.productsService.delProducts(product.data).subscribe({
-      next: (data) => {
+      next: () => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Produkt został usunięty pomyślnie',
@@ -109,7 +114,32 @@ export class ProductListComponent implements OnInit {
             window.location.reload();
           });
       },
-      error: (error) => {
+      error: () => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Podczas usuwania wystapił problem',
+          'Zamknij'
+        );
+      },
+      complete: () => {},
+    });
+    console.log('Deleted product of id:', product.data.id);
+  }
+
+  onEdit(product: ProductWrapper) {
+    this.productsService.delProducts(product.data).subscribe({
+      next: () => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Produkt został usunięty pomyślnie',
+          'Zamknij'
+        )
+          .afterDismissed()
+          .subscribe(() => {
+            window.location.reload();
+          });
+      },
+      error: () => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Podczas usuwania wystapił problem',

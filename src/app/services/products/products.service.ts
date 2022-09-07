@@ -19,7 +19,7 @@ export class ProductsService {
     console.log(`Bearer ${localStorage.getItem('access_token')}`);
 
     return this.httpClient.get<ProductPage>(
-      UrlProviderService.products + "/pages/"+pageNumber,{ headers: header }
+      UrlProviderService.products + "/pages/" + pageNumber,{ headers: header }
     );
 
   }

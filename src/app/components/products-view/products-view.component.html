@@ -1,7 +1,7 @@
 <div class="container">
-  <mat-drawer-container class="example-container">
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
-      <label>Kategoria</label>
+  <mat-drawer-container class="drawer-container">
+    <mat-drawer #drawer class="sidenav" mode="side" opened="true">
+      <mat-label>Kategoria</mat-label>
       <mat-radio-group class="category-radio-group">
         <mat-radio-button class="category-radio-button" (change)="onChange($event)" value="Wszystko" checked="true">
           Wszystko
@@ -11,22 +11,22 @@
           {{ category.categoryName }}
         </mat-radio-button>
       </mat-radio-group>
-      <form class="example-form">
-        <mat-form-field class="example-form-field" appearance="fill">
+      <form class="form">
+        <mat-form-field class="form-field">
           <mat-label>Cena od</mat-label>
           <input matInput type="number" [(ngModel)]="minPrice" name="valueInput" />
           <button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice = ''">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <mat-form-field class="example-form-field" appearance="fill">
+        <mat-form-field class="form-field">
           <mat-label>Cena do</mat-label>
           <input matInput type="number" [(ngModel)]="maxPrice" name="value2Input" />
           <button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice = ''">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <mat-form-field class="example-form-field" appearance="fill">
+        <mat-form-field class="form-field-search">
           <mat-label>Wyszukaj</mat-label>
           <input matInput type="text" [(ngModel)]="query" name="queryInput" />
         </mat-form-field>
@@ -36,13 +36,18 @@
         <button class="search-bar-button" mat-flat-button color="primary" (click)="clearFunction()">
           Wyczyść
         </button>
-        <div *ngIf="currentCategory === 'Wszystko' && query===''">
+        <!-- <div *ngIf="currentCategory === 'Wszystko' && query===''">
           <app-pager [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
 
           </app-pager>
-        </div>
+        </div> -->
       </form>
-
+      <mat-paginator
+            [length]="totalPages"
+            [pageSize]="2"
+            aria-label="Select page">
+      </mat-paginator>
+      
       <!--
       <div *ngFor="let item of items | search:'id,text':query">{{item.text}}</div> -->
     </mat-drawer>

@@ -17,6 +17,9 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { AddProductComponent } from './components/admin-panel/add-product/add-product.component';
 import { UserListComponent } from './components/admin-panel/user-list/user-list.component';
 import { ProductListComponent } from './components/admin-panel/product-list/product-list.component';
+import { PagerComponent } from './components/pager/pager.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart/add-to-cart.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -38,9 +41,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PagerComponent } from './components/pager/pager.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { AddToCartComponent } from './components/add-to-cart/add-to-cart/add-to-cart.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart/add-to-
     MatTabsModule,
     MatTableModule,
     MatDialogModule,
+    MatPaginatorModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function tokenGetter() {

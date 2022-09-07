@@ -30,11 +30,15 @@ export class AddToCartComponent implements OnInit {
     this.product = this.data;
   }
 
-  public multiply(): Number {
-    return (this.quantity * this.product.unitPrice);
+  public multiply(): Number | undefined {
+    if (!this.quantity) {
+      return undefined;
+    } 
+    return this.quantity * this.product.unitPrice;
   }
 
   public addProduct(): void {
+    console.log(this.data.name);
     this.order.shipCity = "dupa"
     // this.order.date = new Date();
     this.order.shipCountry = "dupa";

@@ -39,17 +39,6 @@ export class ProductCardComponent implements OnInit {
       });
   }
 
-  addToShoppingCart() {
-    SnackBarNotificationUtil.showSnackBarSuccess(
-      this._snackBar,
-      'Produkt został dodany pomyślnie',
-      'Zamknij'
-    );
-
-    JwtService.shoppingCart.push(this.product);
-    console.log(JwtService.shoppingCart);
-  }
-
   openDialog(product: Product) {
     this.dialog.open(AddToCartComponent, { data: product });
   }

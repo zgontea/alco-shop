@@ -2,13 +2,15 @@ mat-dialog-content {
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
 }
 
 .dialog {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100%;
-    width: max-content;
+    width: 300px;
 }
 
 mat-form-field {

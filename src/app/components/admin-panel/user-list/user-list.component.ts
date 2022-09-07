@@ -39,7 +39,12 @@ export class UserListComponent implements OnInit {
       cell: (element: UserWrapper) => `${element.data.email}`,
     },
     {
-      columnDef: 'actions',
+      columnDef: 'actionDelete',
+      header: '',
+      cell: () => {},
+    },
+    {
+      columnDef: 'actionEdit',
       header: '',
       cell: () => {},
     },
@@ -80,8 +85,6 @@ export class UserListComponent implements OnInit {
     });
   }
 
-
-
   onDelete(user: UserWrapper) {
     this.userService.delUsers(user.data).subscribe({
       next: (data) => {
@@ -104,6 +107,31 @@ export class UserListComponent implements OnInit {
       },
       complete: () => {},
     });
-    console.log('Deleted product of id:', user.data.id);
+    console.log('Deleted user of id:', user.data.id);
+  }
+
+  onEdit(user: UserWrapper) {
+    this.userService.delUsers(user.data).subscribe({
+      next: () => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Zmiany zostały zapisane pomyślnie',
+          'Zamknij'
+        )
+          .afterDismissed()
+          .subscribe(() => {
+            window.location.reload();
+          });
+      },
+      error: () => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this.snackBar,
+          'Podczas zapisywania zmian wystapił problem',
+          'Zamknij'
+        );
+      },
+      complete: () => {},
+    });
+    console.log('Deleted user of id:', user.data.id);
   }
 }

@@ -13,3 +13,15 @@
 .container {
   height: auto;
 }
+
+.mat-column-actionEdit {
+  text-align: right;
+  justify-content: flex-end;
+  width: 100px;
+}
+
+.mat-column-actionDelete {
+  text-align: right;
+  justify-content: flex-end;
+  width: 100px;
+}

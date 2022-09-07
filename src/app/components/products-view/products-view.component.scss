@@ -17,19 +17,25 @@
   margin-left: 50px;
 }
 
-.example-form-field {
-  width: 100%;
+.form-field {
+  width: 48%;
 }
 
-.example-form {
+.form-field-search {
+  width: 97%;
+}
+
+.form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  align-content: space-around;
   width: 300px;
   height: fit-content;
 }
 
-.example-container {
+.drawer-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -37,11 +43,12 @@
   justify-content: space-between;
 }
 
-.example-sidenav {
+.sidenav {
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: center;
+  align-content: space-between;
   padding: 20px;
 }
 
@@ -67,9 +74,14 @@
 
 .search-bar-button {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+mat-paginator {
+  margin-top: 85px;
 }
