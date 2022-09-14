@@ -11,7 +11,7 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(): Observable<User[]>
+  getAll(): Observable<User[]>
   {
     let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
     console.log(`Bearer ${localStorage.getItem('access_token')}`);
@@ -21,16 +21,23 @@ export class UsersService {
     )
   }
 
-  delUsers(user: User){
+  delete(user: User){
     let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
     return this.httpClient.delete(
       UrlProviderService.users + '/del/' + user.id, { headers: header });
   }
 
-  getUserByEmail(email: string): Observable<User> {
+  getByEmail(email: string): Observable<User> {
     let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
 
     return this.httpClient.get<User>(
       UrlProviderService.users + '/email/' + email, { headers: header });
+  }
+  
+  update(user: User) {
+    let header = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+
+    return this.httpClient.put<User>(
+      UrlProviderService.users + '/upd/', { headers: header });
   }
 }

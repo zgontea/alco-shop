@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatRadioChange } from '@angular/material/radio';
 import { CategoryService } from '../../services/category/category.service';
 import { ProductsService } from '../../services/products/products.service';
@@ -9,15 +10,17 @@ import { Product } from '../../wrappers/product';
   templateUrl: './products-view.component.html',
   styleUrls: ['./products-view.component.scss'],
 })
-export class ProductsViewComponent implements OnInit {
+export class ProductsViewComponent implements OnInit, AfterViewInit {
   public _products: Product[] = [];
   public _categories: Category[] = [];
   public test = '';
   minPrice = '';
   maxPrice = '';
-  query = '';
+  queriedProductName = '';
   currentPage = 0;
-  totalPages = 0;
+  itemsAmount = 1;
+  pageSizeOptions: number[] = [3, 6, 12];
+  itemsOnPage = this.pageSizeOptions[1];
   currentCategory = 'Wszystko';
 
   constructor(
@@ -26,42 +29,37 @@ export class ProductsViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProducts();
     this.getCategories();
+  }
+
+  ngAfterViewInit(): void {
     this.fetchPage(this.currentPage);
   }
 
   fetchPage(pageNumber: number): void {
-    this.productsService.getProductPage(pageNumber).subscribe((response) => {
-      this.products = response.items;
-      this.totalPages = response.totalPages;
+    let offset = pageNumber * this.itemsOnPage;
+    this.productsService.getFiltered(offset, this.itemsOnPage, this.currentCategory, this.queriedProductName, Number(this.minPrice), Number(this.maxPrice)).subscribe({
+      next: (data) => {
+        this.products = data.products;
+        this.itemsAmount = data.itemsAmount;
+      },
+      complete: () => {
+      }
     });
   }
 
-  onPageChanged(pageNumber: number): void {
-    this.currentPage = pageNumber;
+  onPageChanged(event: PageEvent): PageEvent {
+    this.currentPage = event.pageIndex;
+    this.itemsOnPage = event.pageSize;
     this.fetchPage(this.currentPage);
+
+    return event;
   }
 
   onChange(event: MatRadioChange) {
-    if (event.source.value == 'Wszystko') {
-      this.fetchPage(this.currentPage);
-    } else {
-      this.getProductsByCatName(event.source.value);
-    }
     this.currentCategory = event.source.value;
-  }
-
-  public getProductsByCatName(catName: string): void {
-    this.categoryService
-      .getProductsByCategoryName(catName)
-      .subscribe((value) => (this._products = value));
-  }
-
-  public getProducts(): void {
-    this.productsService
-      .getProducts()
-      .subscribe((value) => (this._products = value));
+    this.currentPage = 0;
+    this.fetchPage(this.currentPage);
   }
 
   public getCategories(): void {
@@ -71,24 +69,15 @@ export class ProductsViewComponent implements OnInit {
   }
 
   public searchFunction(): void {
-    if (this.query === '') {
       this.fetchPage(this.currentPage);
-      return;
-    }
-    this.getProducts();
-  }
-
-  public convertStrToNumber(num: string): Number {
-    return Number(num)
   }
 
   public clearFunction(): void {
-    this.fetchPage(this.currentPage);
-    this.query = '';
+    this.queriedProductName = '';
     this.minPrice = '';
     this.maxPrice = '';
+    this.fetchPage(this.currentPage);
   }
-
 
   public get category(): Category[] {
     return this._categories;

@@ -6,15 +6,15 @@ import { Observable } from 'rxjs';
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImageService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getImage(imageName: string): Observable<Image> {
-    console.log(UrlProviderService.image + "/" + imageName);
+    console.log(UrlProviderService.image + '/' + imageName);
     return this.httpClient.get<Image>(
-      UrlProviderService.image + "/" + imageName);
+      UrlProviderService.image + '/' + imageName
+    );
   }
 }

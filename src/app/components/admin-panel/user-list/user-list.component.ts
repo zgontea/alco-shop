@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/wrappers/user';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BAD_REQUEST_ERROR, CLOSE_BUTTON, NO_ACCESS_ERROR } from 'src/app/globals';
+import { MatTable } from '@angular/material/table';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorHandler } from 'src/app/utils/http-error-handler';
 
 export interface UserWrapper {
   position: number;
@@ -14,7 +18,8 @@ export interface UserWrapper {
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent extends HttpErrorHandler implements OnInit {
+  @ViewChild(MatTable) table!: MatTable<UserWrapper>;
   public users: User[] = [];
   public value = '';
   columns = [
@@ -55,83 +60,72 @@ export class UserListComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getUsers();
   }
   
   getUsers() {
-    this.userService.getUsers().subscribe({
+    this.userService.getAll().subscribe({
       next: (data) => {
-        
         this.users = data;
-
         for (let index = 0; index < data.length; index++) {
           const wrapper: UserWrapper = {
             position: index + 1,
             data: data[index],
           };
-          console.log(wrapper);
-
           this.dataSource.push(wrapper);
         }
       },
-      error: (error) => {
-        console.log('Error loading users');
-        console.log(error);
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
-      complete: () => {},
+      complete: () => {
+        this.table.renderRows();
+      },
     });
   }
 
   onDelete(user: UserWrapper) {
-    this.userService.delUsers(user.data).subscribe({
+    this.userService.delete(user.data).subscribe({
       next: (data) => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Użytkownik został usunięty pomyślnie',
-          'Zamknij'
+          CLOSE_BUTTON
         )
           .afterDismissed()
           .subscribe(() => {
-            window.location.reload();
+            this.getUsers();
           });
       },
-      error: (error) => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Podczas usuwania wystapił problem',
-          'Zamknij'
-        );
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
       complete: () => {},
     });
-    console.log('Deleted user of id:', user.data.id);
   }
 
   onEdit(user: UserWrapper) {
-    this.userService.delUsers(user.data).subscribe({
+    this.userService.update(user.data).subscribe({
       next: () => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Zmiany zostały zapisane pomyślnie',
-          'Zamknij'
+          CLOSE_BUTTON
         )
           .afterDismissed()
           .subscribe(() => {
-            window.location.reload();
+            this.getUsers();
           });
       },
-      error: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Podczas zapisywania zmian wystapił problem',
-          'Zamknij'
-        );
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
       complete: () => {},
     });
-    console.log('Deleted user of id:', user.data.id);
   }
 }

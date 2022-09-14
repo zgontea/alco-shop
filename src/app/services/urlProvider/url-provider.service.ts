@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { serverAddress } from 'src/app/globals';
+import { SERVER_ADDRESS } from 'src/app/globals';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UrlProviderService {
-  private static serverAddress = serverAddress;
+  private static serverAddress = SERVER_ADDRESS;
   private static _api = '/api';
 
   public static get products() {

@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { BAD_REQUEST_ERROR, CLOSE_BUTTON, NO_ACCESS_ERROR } from 'src/app/globals';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { HttpErrorHandler } from 'src/app/utils/http-error-handler';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
 import { AddProductComponent } from '../add-product/add-product.component';
@@ -16,7 +22,8 @@ export interface ProductWrapper {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent extends HttpErrorHandler implements OnInit  {
+  @ViewChild(MatTable) table!: MatTable<ProductWrapper>;
   products: Product[] = [];
   columns = [
     {
@@ -67,15 +74,17 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getProducts();
   }
 
   getProducts() {
-    this.productsService.getProducts().subscribe({
+    this.productsService.getAll().subscribe({
       next: (data : any) => {
         this.products = data;
         console.log(data.length);
@@ -85,15 +94,15 @@ export class ProductListComponent implements OnInit {
             position: index + 1,
             data: data[index],
           };
-          console.log(wrapper);
-
           this.dataSource.push(wrapper);
         }
       },
-      error: () => {
-        console.log('Error loading products');
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
-      complete: () => {},
+      complete: () => {
+        this.table.renderRows();
+      },
     });
   }
 
@@ -102,52 +111,42 @@ export class ProductListComponent implements OnInit {
   }
 
   onDelete(product: ProductWrapper) {
-    this.productsService.delProducts(product.data).subscribe({
+    this.productsService.delete(product.data).subscribe({
       next: () => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Produkt został usunięty pomyślnie',
-          'Zamknij'
+          CLOSE_BUTTON
         )
           .afterDismissed()
           .subscribe(() => {
-            window.location.reload();
+            this.getProducts();
           });
       },
-      error: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Podczas usuwania wystapił problem',
-          'Zamknij'
-        );
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
       complete: () => {},
     });
-    console.log('Deleted product of id:', product.data.id);
   }
 
   onEdit(product: ProductWrapper) {
-    this.productsService.delProducts(product.data).subscribe({
+    this.productsService.update(product.data).subscribe({
       next: () => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
-          'Produkt został usunięty pomyślnie',
-          'Zamknij'
+          'Produkt został zaktualizowany pomyślnie',
+          CLOSE_BUTTON
         )
           .afterDismissed()
           .subscribe(() => {
-            window.location.reload();
+            this.getProducts();
           });
       },
-      error: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Podczas usuwania wystapił problem',
-          'Zamknij'
-        );
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error, this.snackBar);
       },
       complete: () => {},
     });
-    console.log('Deleted product of id:', product.data.id);
   }
 }

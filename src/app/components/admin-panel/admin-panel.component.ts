@@ -33,7 +33,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   changeTab($event: { index: number }) {
-    console.log($event.index);
     this.router.navigate(['admin-panel/' + TABS[$event.index].component]);
   }
 

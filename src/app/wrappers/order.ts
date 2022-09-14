@@ -1,11 +1,16 @@
+import { OrderStatus } from "./OrderStatus";
+import { Product } from "./product";
+
 export class Order {
     id!: number
-    // date!: Date;
+    date!: Date;
+    shipAddress!: string;
     shipCity!: string;
     shipCountry!: string;
     shipEmail!: string;
     shipPhoneNumber!: string;
     shipPostalCode!: string;
-    shipTo!: string;
+    status!: OrderStatus;
     userId!: number;
+    products!: Product[];
 }

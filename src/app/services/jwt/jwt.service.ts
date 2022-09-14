@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
+import { CLOSE_BUTTON } from 'src/app/globals';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +19,7 @@ export class JwtService {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   login(email: string, password: string) {
     return this.httpClient
@@ -43,8 +42,11 @@ export class JwtService {
           localStorage.setItem('email', data.email);
         },
         error: (error) => {
-          SnackBarNotificationUtil.showSnackBarFailure(this._snackBar, 'Niepoprawne dane logowania', 'Zamknij');
-          console.log('error');
+          SnackBarNotificationUtil.showSnackBarFailure(
+            this._snackBar,
+            'Niepoprawne dane logowania',
+            CLOSE_BUTTON
+          );
         },
         complete: () => {
           if (this.isAdmin) this.router.navigateByUrl('/admin-panel');
@@ -58,6 +60,7 @@ export class JwtService {
     localStorage.removeItem('name');
     localStorage.removeItem('surname');
     localStorage.removeItem('is_admin');
+    localStorage.removeItem('email');
   }
 
   public get loggedIn(): boolean {

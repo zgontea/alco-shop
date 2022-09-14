@@ -9,7 +9,7 @@ export class SnackBarNotificationUtil {
     action: string
   ) {
     return snackBar.open(message, action, {
-      duration: 3500,
+      duration: 2000,
       panelClass: ['snack-failure'],
       verticalPosition: 'top',
     });
@@ -21,7 +21,7 @@ export class SnackBarNotificationUtil {
     action: string
   ) {
     return snackBar.open(message, action, {
-      duration: 3500,
+      duration: 2000,
       panelClass: ['snack-success'],
       verticalPosition: 'top',
     });
@@ -33,7 +33,7 @@ export class SnackBarNotificationUtil {
     action: string
   ) {
     return snackBar.open(message, action, {
-      duration: 3500,
+      duration: 2000,
       panelClass: ['snack-info'],
       verticalPosition: 'top',
     });

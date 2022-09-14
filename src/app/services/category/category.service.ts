@@ -7,11 +7,10 @@ import { Product } from '../../wrappers/product';
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(
@@ -20,6 +19,11 @@ export class CategoryService {
   }
 
   getProductsByCategoryName(categoryName: string): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(UrlProviderService.categories + '/categoryName?' + 'categoryName=' + categoryName);
+    return this.httpClient.get<Product[]>(
+      UrlProviderService.categories +
+        '/categoryName?' +
+        'categoryName=' +
+        categoryName
+    );
   }
 }

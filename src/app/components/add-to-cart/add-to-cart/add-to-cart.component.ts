@@ -44,7 +44,7 @@ export class AddToCartComponent implements OnInit {
     this.order.shipCountry = "dupa";
     this.order.shipEmail = "dupa";
     this.order.shipPhoneNumber = "dupa";
-    this.order.shipTo = "dupa";
+    this.order.shipAddress = "dupa";
     this.order.shipPostalCode = "dupa";
     this.order.userId = 2;
     this.orderService.addOrder(this.order).subscribe({
@@ -62,31 +62,7 @@ export class AddToCartComponent implements OnInit {
           'Zamknij'
         );
       },
-      complete: () => { },
+      complete: () => {},
     });
-
-    // this.orderDetails.price = this.quantity * this.product.unitPrice;
-    // this.orderDetails.quantity = this.quantity;
-    // this.orderDetails.productId = this.product.id;
-    // this.orderDetails.orderId = this.order.id;
-    // this.orderDetailsService.addOrder(this.orderDetails).subscribe({
-    //   next: (_) => {
-    //     SnackBarNotificationUtil.showSnackBarSuccess(
-    //       this._snackBar,
-    //       'Produkt został dodany pomyślnie',
-    //       'Zamknij'
-    //     );
-    //   },
-    //   error: (error) => {
-    //     SnackBarNotificationUtil.showSnackBarSuccess(
-    //       this._snackBar,
-    //       'Podczas usuwania wystapił problem',
-    //       'Zamknij'
-    //     );
-    //   },
-    //   complete: () => { },
-    // });
-    return
   }
-
 }

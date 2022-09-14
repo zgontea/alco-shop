@@ -54,7 +54,7 @@ export class AddProductComponent implements OnInit {
     this.newProduct.categoryName = this.value;
     //this.newProduct = this.form.value as ProductAdd;
     // this.newProduct.categoryName = this.catName
-    this.productsService.addProducts(this.newProduct).subscribe({
+    this.productsService.add(this.newProduct).subscribe({
       next: (_) => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this._snackBar,

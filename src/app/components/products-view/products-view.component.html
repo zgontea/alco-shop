@@ -28,7 +28,7 @@
         </mat-form-field>
         <mat-form-field class="form-field-search">
           <mat-label>Wyszukaj</mat-label>
-          <input matInput type="text" [(ngModel)]="query" name="queryInput" />
+          <input matInput type="text" [(ngModel)]="queriedProductName" name="queryInput" />
         </mat-form-field>
         <button class="search-bar-button" mat-flat-button color="primary" (click)="searchFunction()">
           Wyszukaj
@@ -36,53 +36,20 @@
         <button class="search-bar-button" mat-flat-button color="primary" (click)="clearFunction()">
           Wyczyść
         </button>
-        <!-- <div *ngIf="currentCategory === 'Wszystko' && query===''">
-          <app-pager [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
-
-          </app-pager>
-        </div> -->
       </form>
       <mat-paginator
-            [length]="totalPages"
-            [pageSize]="2"
-            aria-label="Select page">
+            [length]="itemsAmount"
+            [pageSize]="itemsOnPage"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="onPageChanged($event)">
       </mat-paginator>
-      
-      <!--
-      <div *ngFor="let item of items | search:'id,text':query">{{item.text}}</div> -->
+    
     </mat-drawer>
 
     <div id="productDiv" *ngIf="products.length > 0" class="products-table">
       <div *ngFor="let product of products">
-        <div *ngIf="product.name.includes(query)">
-          <div *ngIf="minPrice && maxPrice; else elseif1">
-            <div
-              *ngIf="product.unitPrice >= convertStrToNumber(minPrice) && product.unitPrice <= convertStrToNumber(maxPrice)">
-              <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
-              </app-product-card>
-            </div>
-          </div>
-          <ng-template #elseif1>
-            <div *ngIf="minPrice; else elseif2">
-              <div *ngIf="product.unitPrice >= convertStrToNumber(minPrice)">
-                <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
-                </app-product-card>
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #elseif2>
-            <div *ngIf="maxPrice; else elseif3">
-              <div *ngIf="product.unitPrice <= convertStrToNumber(maxPrice)">
-                <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
-                </app-product-card>
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #elseif3>
-            <app-product-card [hidden]="false" [id]='product.name' [product]='product'>
-            </app-product-card>
-          </ng-template>
-        </div>
+        <app-product-card [id]='product.name' [product]='product'>
+        </app-product-card>
       </div>
     </div>
 
