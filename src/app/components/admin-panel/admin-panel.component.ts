@@ -18,10 +18,6 @@ const TABS: Tab[] = [
     index: 1,
     component: 'product-list',
   },
-  {
-    index: 2,
-    component: 'statistics',
-  },
 ];
 
 @Component({
