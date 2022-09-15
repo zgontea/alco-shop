@@ -19,6 +19,7 @@ import { UserListComponent } from './components/admin-panel/user-list/user-list.
 import { ProductListComponent } from './components/admin-panel/product-list/product-list.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart/add-to-cart.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -58,6 +59,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ProductListComponent,
     ShoppingCartComponent,
     AddToCartComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,

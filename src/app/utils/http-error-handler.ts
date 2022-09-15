@@ -8,6 +8,8 @@ import {
   SESSION_EXPIRED_ERROR,
   ACCOUNT_ALREADY_EXIST,
   CONFLICT,
+  FORBIDDEN,
+  NO_ACCESS,
 } from '../globals';
 import { SnackBarNotificationUtil } from './snack-bar-notification-util';
 
@@ -15,7 +17,7 @@ export class HttpErrorHandler {
   constructor() {}
 
   public handleError(error: HttpErrorResponse, snackBar: MatSnackBar) {
-    let noAccessStatuses = [401, 403];
+    let noAccessStatuses = [NO_ACCESS, FORBIDDEN];
     let message = BAD_REQUEST_ERROR;
     if (noAccessStatuses.includes(error.status)) {
       message = NO_ACCESS_ERROR;

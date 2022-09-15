@@ -1,16 +1,14 @@
-import { OrderStatus } from "./OrderStatus";
-import { Product } from "./product";
+import { User } from "./user";
 
-export class Order {
+export class OrderWrapper {
     id!: number
-    date!: Date;
+    createdDate!: string;
     shipAddress!: string;
     shipCity!: string;
-    shipCountry!: string;
     shipEmail!: string;
-    shipPhoneNumber!: string;
+    shipPhoneNo!: string;
     shipPostalCode!: string;
-    status!: OrderStatus;
-    userId!: number;
-    products!: Product[];
+    status!: string;
+    totalPrice!: number;
+    user!: User;
 }

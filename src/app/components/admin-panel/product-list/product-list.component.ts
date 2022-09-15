@@ -10,6 +10,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { HttpErrorHandler } from 'src/app/utils/http-error-handler';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
 import { Product } from 'src/app/wrappers/product';
+import { ProductAdd } from 'src/app/wrappers/product-add';
 import { AddProductComponent } from '../add-product/add-product.component';
 
 export interface ProductWrapper {
@@ -57,11 +58,6 @@ export class ProductListComponent extends HttpErrorHandler implements OnInit  {
       cell: (element: ProductWrapper) => `${element.data.concentration}`,
     },
     {
-      columnDef: 'actionDelete',
-      header: '',
-      cell: () => {},
-    },
-    {
       columnDef: 'actionEdit',
       header: '',
       cell: () => {},
@@ -87,8 +83,7 @@ export class ProductListComponent extends HttpErrorHandler implements OnInit  {
     this.productsService.getAll().subscribe({
       next: (data : any) => {
         this.products = data;
-        console.log(data.length);
-
+        this.dataSource = [];
         for (let index = 0; index < data.length; index++) {
           const wrapper: ProductWrapper = {
             position: index + 1,
@@ -106,47 +101,30 @@ export class ProductListComponent extends HttpErrorHandler implements OnInit  {
     });
   }
 
-  openDialog() {
-    this.dialog.open(AddProductComponent);
-  }
-
-  onDelete(product: ProductWrapper) {
-    this.productsService.delete(product.data).subscribe({
-      next: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Produkt został usunięty pomyślnie',
-          CLOSE_BUTTON
-        )
-          .afterDismissed()
-          .subscribe(() => {
-            this.getProducts();
-          });
-      },
-      error: (error: HttpErrorResponse) => {
-        this.handleError(error, this.snackBar);
-      },
-      complete: () => {},
-    });
-  }
-
-  onEdit(product: ProductWrapper) {
-    this.productsService.update(product.data).subscribe({
-      next: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Produkt został zaktualizowany pomyślnie',
-          CLOSE_BUTTON
-        )
-          .afterDismissed()
-          .subscribe(() => {
-            this.getProducts();
-          });
-      },
-      error: (error: HttpErrorResponse) => {
-        this.handleError(error, this.snackBar);
-      },
-      complete: () => {},
-    });
+  openDialog(product: ProductWrapper | null) {
+    if (product == null) {
+      this.dialog.open(AddProductComponent).afterClosed().subscribe({
+        next: () => {
+          this.getProducts();
+        }
+      });
+    } else {
+      let productToUpdate = new ProductAdd();
+      productToUpdate.concentration = product.data.concentration;
+      productToUpdate.unitPrice = product.data.unitPrice;
+      productToUpdate.name = product.data.name;
+      productToUpdate.description = product.data.description;
+      productToUpdate.id = product.data.id;
+      productToUpdate.size = product.data.size;
+  
+      let dialogRef = this.dialog.open(AddProductComponent);
+      dialogRef.afterClosed().subscribe({
+        next: () => {
+          this.getProducts();
+        }
+      });
+      dialogRef.componentInstance.newProduct = productToUpdate;
+      dialogRef.componentInstance.isEdit = true;
+    }
   }
 }

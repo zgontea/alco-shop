@@ -1,5 +1,6 @@
 <div class="dialog">
-  <h1 mat-dialog-title>Dodaj nowy produkt</h1>
+  <h1 mat-dialog-title *ngIf="isEdit">Edytuj produkt</h1>
+  <h1 mat-dialog-title *ngIf="!isEdit">Dodaj nowy produkt</h1>
   <mat-dialog-content>
     <mat-divider inset></mat-divider>
     <form #registerForm="ngForm" (ngSubmit)="addProduct()">
@@ -25,9 +26,10 @@
         />
         <mat-error> Proszę wprowadzić poprawną cenę </mat-error>
       </mat-form-field>
-      <label>Kategoria</label>
+      <label *ngIf="!isEdit">Kategoria</label>
       <mat-radio-group
         class="category-radio-group"
+        *ngIf="!isEdit"
       >
         <mat-radio-button
           class="category-radio-button"
@@ -71,7 +73,7 @@
         />
         <mat-error> Proszę wprowadzić poprawne stężenie </mat-error>
       </mat-form-field>
-      <div>
+      <div *ngIf="!isEdit">
         <input
           id="file-upload"
           type="file"
@@ -84,7 +86,7 @@
 
       <div mat-dialog-actions>
         <button mat-raised-button color="primary" type="submit">
-          Dodaj produkt
+          Zapisz
         </button>
         <button mat-button mat-dialog-close>Anuluj</button>
       </div>

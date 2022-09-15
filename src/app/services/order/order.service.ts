@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Order } from 'src/app/wrappers/order';
+import { OrderWrapper } from 'src/app/wrappers/order';
+import { OrderDetails } from 'src/app/wrappers/order-details';
 import { UrlProviderService } from '../urlProvider/url-provider.service';
 
 @Injectable({
@@ -10,33 +11,39 @@ import { UrlProviderService } from '../urlProvider/url-provider.service';
 export class OrderService {
   constructor(private httpClient: HttpClient) {}
 
-  addOrder(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(
+  addOrder(order: OrderWrapper): Observable<OrderWrapper> {
+    return this.httpClient.post<OrderWrapper>(
       UrlProviderService.order + '/save',
       order,
       { headers: this.authHeader }
     );
   }
 
-  getAllOrders(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(
+  getAllOrders(order: OrderWrapper): Observable<OrderWrapper> {
+    return this.httpClient.post<OrderWrapper>(
       UrlProviderService.order + '/save',
       order,
       { headers: this.authHeader }
     );
   }
 
-  getUserOrders(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(
-      UrlProviderService.order + '/save',
-      order,
+  getUserOrderDetails(userId: string): Observable<OrderDetails[]> {
+    return this.httpClient.get<OrderDetails[]>(
+      UrlProviderService.order + '/id' + '?userId=' + userId,
       { headers: this.authHeader }
     );
   }
 
-  submitOrder(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(
-      UrlProviderService.order + '/save',
+  getUserOrders(userId: string): Observable<OrderWrapper[]> {
+    return this.httpClient.get<OrderWrapper[]>(
+      UrlProviderService.order + '/userOrder' + '?userId=' + userId,
+      { headers: this.authHeader }
+    );
+  }
+
+  submitOrder(order: OrderWrapper): Observable<OrderWrapper> {
+    return this.httpClient.post<OrderWrapper>(
+      UrlProviderService.order + '/sendOrder',
       order,
       { headers: this.authHeader }
     );

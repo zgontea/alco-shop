@@ -1,7 +1,8 @@
+import { Product } from "./product";
+
 export class OrderDetails {
     id!: number
-    price!: number;
+    totalPrice!: number;
     quantity!: number;
-    orderId!: number;
-    productId!: number;
+    product!: Product;
 }

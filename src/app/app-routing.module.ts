@@ -8,6 +8,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { ProductListComponent } from './components/admin-panel/product-list/product-list.component';
 import { UserListComponent } from './components/admin-panel/user-list/user-list.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsPageComponent,
+  },
+  {
+    path: 'order-list',
+    component: OrderListComponent,
   },
   {
     path: 'admin-panel',

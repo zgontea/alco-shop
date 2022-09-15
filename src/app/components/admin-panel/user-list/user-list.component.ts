@@ -43,16 +43,6 @@ export class UserListComponent extends HttpErrorHandler implements OnInit {
       header: 'Email',
       cell: (element: UserWrapper) => `${element.data.email}`,
     },
-    {
-      columnDef: 'actionDelete',
-      header: '',
-      cell: () => {},
-    },
-    {
-      columnDef: 'actionEdit',
-      header: '',
-      cell: () => {},
-    },
   ];
   dataSource: UserWrapper[] = [];
   displayedColumns = this.columns.map((c) => c.columnDef);
@@ -72,6 +62,7 @@ export class UserListComponent extends HttpErrorHandler implements OnInit {
     this.userService.getAll().subscribe({
       next: (data) => {
         this.users = data;
+        this.dataSource = [];
         for (let index = 0; index < data.length; index++) {
           const wrapper: UserWrapper = {
             position: index + 1,
@@ -95,26 +86,6 @@ export class UserListComponent extends HttpErrorHandler implements OnInit {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this.snackBar,
           'Użytkownik został usunięty pomyślnie',
-          CLOSE_BUTTON
-        )
-          .afterDismissed()
-          .subscribe(() => {
-            this.getUsers();
-          });
-      },
-      error: (error: HttpErrorResponse) => {
-        this.handleError(error, this.snackBar);
-      },
-      complete: () => {},
-    });
-  }
-
-  onEdit(user: UserWrapper) {
-    this.userService.update(user.data).subscribe({
-      next: () => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
-          this.snackBar,
-          'Zmiany zostały zapisane pomyślnie',
           CLOSE_BUTTON
         )
           .afterDismissed()

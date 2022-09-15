@@ -44,9 +44,10 @@ export class ProductsService {
     );
   }
 
-  update(product: Product) {
+  update(product: ProductAdd) {
     return this.httpClient.put(
-      UrlProviderService.products + '/upd/' + product.id,
+      UrlProviderService.products + '/upd',
+      product,
       { headers: this.getAuthorizationHeader() }
     );
   }

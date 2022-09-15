@@ -7,6 +7,8 @@ import { CategoryService } from '../../../services/category/category.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarNotificationUtil } from 'src/app/utils/snack-bar-notification-util';
+import { CLOSE_BUTTON } from 'src/app/globals';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-product',
@@ -22,12 +24,14 @@ export class AddProductComponent implements OnInit {
   public value = '';
 
   newProduct: ProductAdd = new ProductAdd();
+  isEdit = false;
 
   constructor(
     private productsService: ProductsService,
     private categoryService: CategoryService,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<AddProductComponent>,
   ) {
     this.getCategories();
     this.form = fb.group({
@@ -49,32 +53,60 @@ export class AddProductComponent implements OnInit {
     console.log(event.source.value);
   }
 
-  addProduct() {
-    this.newProduct.image = this.form.value.image;
-    this.newProduct.categoryName = this.value;
-    //this.newProduct = this.form.value as ProductAdd;
-    // this.newProduct.categoryName = this.catName
-    this.productsService.add(this.newProduct).subscribe({
+  updateProduct() {
+    this.productsService.update(this.newProduct).subscribe({
       next: (_) => {
         SnackBarNotificationUtil.showSnackBarSuccess(
           this._snackBar,
-          'Produkt został dodany pomyślnie',
+          'Produkt został zapisany pomyślnie',
           'Zamknij'
         );
         this.form.reset();
         if (this.imageInput) {
           this.imageInput.nativeElement.value = '';
         }
-        window.location.reload();
       },
       error: (error) => {
-        SnackBarNotificationUtil.showSnackBarSuccess(
+        SnackBarNotificationUtil.showSnackBarFailure(
           this._snackBar,
-          'Podczas usuwania wystapił problem',
+          'Podczas zapisywania wystapił problem',
           'Zamknij'
         );
       },
-      complete: () => {},
+      complete: () => {
+        this.dialogRef.close();
+      },
+    });
+  }
+
+  addProduct() {
+    if (this.isEdit) {
+      return this.updateProduct();
+    }
+    this.newProduct.image = this.form.value.image;
+    this.newProduct.categoryName = this.value;
+    this.productsService.add(this.newProduct).subscribe({
+      next: (_) => {
+        SnackBarNotificationUtil.showSnackBarSuccess(
+          this._snackBar,
+          'Produkt został dodany pomyślnie',
+          CLOSE_BUTTON
+        );
+        this.form.reset();
+        if (this.imageInput) {
+          this.imageInput.nativeElement.value = '';
+        }
+      },
+      error: (error) => {
+        SnackBarNotificationUtil.showSnackBarFailure(
+          this._snackBar,
+          'Podczas dodawania wystapił problem',
+          CLOSE_BUTTON
+        );
+      },
+      complete: () => {
+        this.dialogRef.close();
+      },
     });
   }
 
@@ -95,21 +127,5 @@ export class AddProductComponent implements OnInit {
       };
     };
     reader.readAsDataURL(file);
-  }
-
-  showSnackBarError(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3500,
-      panelClass: ['snack-failure'],
-      verticalPosition: 'top',
-    });
-  }
-
-  showSnackBarSuccess(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3500,
-      panelClass: ['snack-success'],
-      verticalPosition: 'top',
-    });
   }
 }

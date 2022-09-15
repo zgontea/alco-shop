@@ -34,3 +34,36 @@
 .table {
   width: 100%;
 }
+
+.price {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.price-label {
+  text-align: right;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+}
+
+.summary-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: 30px;
+  grid-area: 1 / 2 / 2 / 3;
+}
+.summary-form {
+  grid-area: 1 / 1 / 2 / 2;
+}

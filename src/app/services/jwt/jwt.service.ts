@@ -29,6 +29,7 @@ export class JwtService {
         surname: string;
         is_admin: string;
         email: string;
+        user_id: string;
       }>(UrlProviderService.login, {
         login: email,
         password: password,
@@ -40,6 +41,7 @@ export class JwtService {
           localStorage.setItem('surname', data.surname);
           localStorage.setItem('is_admin', data.is_admin);
           localStorage.setItem('email', data.email);
+          localStorage.setItem('user_id', data.user_id);
         },
         error: (error) => {
           SnackBarNotificationUtil.showSnackBarFailure(
@@ -61,6 +63,7 @@ export class JwtService {
     localStorage.removeItem('surname');
     localStorage.removeItem('is_admin');
     localStorage.removeItem('email');
+    localStorage.removeItem('user_id');
   }
 
   public get loggedIn(): boolean {

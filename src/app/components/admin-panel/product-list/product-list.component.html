@@ -7,20 +7,14 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ column.header }}
       </th>
-      <div *ngIf="column.columnDef !== 'actionDelete' && column.columnDef !== 'actionEdit'">
+      <div *ngIf="column.columnDef !== 'actionEdit'">
           <td mat-cell *matCellDef="let row">
             {{ column.cell(row) }}
           </td>
       </div>
-      <div *ngIf="column.columnDef === 'actionDelete'">
-          <td mat-cell *matCellDef="let row">
-              <button mat-flat-button color="accent" (click)="onDelete(row)">Usuń
-              </button>
-          </td>
-      </div>
       <div *ngIf="column.columnDef === 'actionEdit'">
           <td mat-cell *matCellDef="let row">
-              <button mat-flat-button color="accent" (click)="onEdit(row)">Edytuj
+              <button mat-flat-button color="accent" (click)="openDialog(row)">Edytuj
               </button>
           </td>
       </div>
@@ -31,7 +25,7 @@
   </table>
   
   <div class="floating-button">
-    <button mat-raised-button color="primary" (click)="openDialog()">
+    <button mat-raised-button color="primary" (click)="openDialog(null)">
       Dodaj Produkt
     </button>
   </div>
