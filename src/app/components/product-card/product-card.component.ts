@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { JwtService } from 'src/app/services/jwt/jwt.service';
 import { Product } from 'src/app/wrappers/product';
 import { ImageService } from '../../services/image/image.service';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart/add-to-cart.component';
@@ -20,8 +21,8 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private sanitizer: DomSanitizer,
-    private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private jwtService: JwtService
   ) { }
 
   ngOnInit(): void {
@@ -34,5 +35,9 @@ export class ProductCardComponent implements OnInit {
 
   openDialog(product: Product) {
     this.dialog.open(AddToCartComponent, { data: product });
+  }
+
+  get isLogged(): boolean {
+    return this.jwtService.loggedIn;
   }
 }
