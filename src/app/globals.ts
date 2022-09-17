@@ -2,7 +2,7 @@
 
 // Server Addresses
 
-export const SERVER_ADDRESS = 'http://25.13.125.17:8090';
+export const SERVER_ADDRESS = 'http://localhost:8080';
 // export const serverAddress = 'http://25.50.55.41:8090';
 // export const serverAddress = 'http://localhost:8090';
 
