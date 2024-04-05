@@ -2,9 +2,7 @@
 
 // Server Addresses
 
-export const SERVER_ADDRESS = 'http://localhost:8080';
-// export const serverAddress = 'http://25.50.55.41:8090';
-// export const serverAddress = 'http://localhost:8090';
+export const SERVER_ADDRESS = 'https://alco-shop-spring-966f80b87f35.herokuapp.com';
 
 // Labels
 export const NO_ACCESS_ERROR = 'Odmowa dostępu'

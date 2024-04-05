@@ -7,8 +7,8 @@
           Wszystko
         </mat-radio-button>
         <mat-radio-button class="category-radio-button" *ngFor="let category of _categories" (change)="onChange($event)"
-          [value]="category.categoryName">
-          {{ category.categoryName }}
+          [value]="category.name">
+          {{ category.name }}
         </mat-radio-button>
       </mat-radio-group>
       <form class="form">
@@ -43,7 +43,7 @@
             [pageSizeOptions]="pageSizeOptions"
             (page)="onPageChanged($event)">
       </mat-paginator>
-    
+
     </mat-drawer>
 
     <div id="productDiv" *ngIf="products.length > 0" class="products-table">

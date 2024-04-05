@@ -35,9 +35,9 @@
           class="category-radio-button"
           *ngFor="let category of categories"
           (change)="onChange($event)"
-          [value]="category.categoryName"
+          [value]="category.name"
         >
-          {{ category.categoryName }}
+          {{ category.name }}
         </mat-radio-button>
       </mat-radio-group>
       <mat-form-field>
