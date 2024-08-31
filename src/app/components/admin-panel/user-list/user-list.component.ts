@@ -31,12 +31,12 @@ export class UserListComponent extends HttpErrorHandler implements OnInit {
     {
       columnDef: 'name',
       header: 'Imię',
-      cell: (element: UserWrapper) => `${element.data.name}`,
+      cell: (element: UserWrapper) => `${element.data.firstname}`,
     },
     {
       columnDef: 'surname',
       header: 'Nazwisko',
-      cell: (element: UserWrapper) => `${element.data.surname}`,
+      cell: (element: UserWrapper) => `${element.data.lastname}`,
     },
     {
       columnDef: 'email',
@@ -57,7 +57,7 @@ export class UserListComponent extends HttpErrorHandler implements OnInit {
   ngOnInit(): void {
     this.getUsers();
   }
-  
+
   getUsers() {
     this.userService.getAll().subscribe({
       next: (data) => {

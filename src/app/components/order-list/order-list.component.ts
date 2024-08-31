@@ -73,7 +73,7 @@ export class OrderListComponent extends HttpErrorHandler implements OnInit {
 
   getMyOrders() {
     let userId = String(localStorage.getItem('user_id'));
-    this.orderService.getUserOrders(userId).subscribe({
+    this.orderService.getUserOrders(String(userId)).subscribe({
       next: (data) => {
         this.orders = data;
         this.dataSource = [];

@@ -119,30 +119,26 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
     this.email = String(localStorage.getItem('email'));
   }
 
-  
+
   validateNameAndSurname(): boolean {
-    var letters = /^[A-Za-z]+$/;
-    if (this.name.match(letters) && this.surname.match(letters)) {
-      return true;
-    } else {
-      return false;
-    }
+    const letters = /^[A-Za-z]+$/;
+    return !!(this.name.match(letters) && this.surname.match(letters));
   }
-  
+
   validatePhoneNumber(): boolean {
     return Boolean(this.phoneNumber.toLowerCase().match(/^[0-9]\d*$/));
   }
-  
+
   validatePostalCode(): boolean {
     return Boolean(this.postalCode.toLowerCase().match(/^[0-9]{2}-[0-9]{3}?$/));
   }
-  
+
   validateEmail(): boolean {
     return Boolean(
       this.email
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
         );
       }
@@ -164,17 +160,17 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
       this.isPayActionDisabled = true;
       return;
     }
-    
+
     this.isPayActionDisabled = false;
   }
-  
+
   onOrderSubmit() {
     let user = new User();
     user.id = Number(localStorage.getItem('user_id'));
-    user.name = String(localStorage.getItem('name'));
-    user.surname = String(localStorage.getItem('surname'));
+    user.firstname = String(localStorage.getItem('name'));
+    user.lastname = String(localStorage.getItem('surname'));
     user.email = String(localStorage.getItem('email'));
-    
+
     let order = new OrderWrapper();
     order.shipAddress = this.address;
     order.shipCity = this.city;
@@ -183,7 +179,7 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
     order.shipPhoneNo = this.phoneNumber;
     order.totalPrice = Number(this.totalCost);
     order.user = user;
-    
+
     this.orderService.submitOrder(order).subscribe({
       next: (data) => {
         SnackBarNotificationUtil.showSnackBarSuccess(
@@ -204,7 +200,7 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
         complete: () => {},
       });
     }
-    
+
     getCartItems() {
       let userId = localStorage.getItem('user_id');
       this.orderService.getUserOrderDetails(String(userId)).subscribe({
@@ -231,7 +227,7 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
         },
       });
     }
-  
+
     deleteCartItem(shoppingCartItemView: ShoppingCartItemView) {
       this.orderDetailsService
         .deleteCartItem(shoppingCartItemView.orderDetail.id)
@@ -252,4 +248,3 @@ export class ShoppingCartComponent extends HttpErrorHandler implements OnInit {
       .reduce((acc, value) => acc + value, 0).toFixed(2);
     }
   }
-  

@@ -25,9 +25,9 @@ export class JwtService {
     return this.httpClient
       .post<{
         access_token: string;
-        name: string;
-        surname: string;
-        is_admin: string;
+        firstname: string;
+        lastname: string;
+        isAdmin: string;
         email: string;
         user_id: string;
       }>(UrlProviderService.login, {
@@ -37,9 +37,9 @@ export class JwtService {
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);
-          localStorage.setItem('name', data.name);
-          localStorage.setItem('surname', data.surname);
-          localStorage.setItem('is_admin', data.is_admin);
+          localStorage.setItem('name', data.firstname);
+          localStorage.setItem('surname', data.lastname);
+          localStorage.setItem('is_admin', data.isAdmin);
           localStorage.setItem('email', data.email);
           localStorage.setItem('user_id', data.user_id);
         },
